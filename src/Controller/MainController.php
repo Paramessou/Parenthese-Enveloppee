@@ -10,6 +10,6 @@ class MainController extends AbstractController
     #[Route('/', name: 'main_accueil')]
     public function accueil()
     {
-        return $this->render('base.html.twig');
+        return $this->render('main/accueil.html.twig');
     }
 }
