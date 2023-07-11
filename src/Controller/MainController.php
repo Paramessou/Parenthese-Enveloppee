@@ -7,16 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MainController extends AbstractController
 {
-    #[Route('/', name: 'main_home')]
-    public function home()
+    #[Route('/', name: 'main_accueil')]
+    public function accueil()
     {
-        echo "bienvenue sur la page d'accueil";
-        die();
-    }
-    #[Route('/login', name: 'main_login')]
-    public function login()
-    {
-        echo "login";
-        die();
+        return $this->render('base.html.twig');
     }
 }

@@ -2,9 +2,10 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>{% block title %}Parenthèse-Enveloppée{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -14,6 +15,23 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <header>
+            <h1><a href="{{ path('main_accueil') }}"><img src="{{ asset('') }}" alt="logo parenthese-enveloppee"><!--Parenthèse-Enveloppée--></a></h1>
+            <nav>
+                <ul>
+                        <li class="menuPresentation"><a href="{#{{ path('') }}#}" title="presentation">Présentation</a></li>
+                        <li><a href="{#{{ path('') }}#}" title="prestations">Prestations</a></li>
+                        <li><a href="{#{{ path('') }}#}" title="reserver">Réserver</a></li>
+                        <li><a href="{#{{ path('') }}#}" title="offrirPrestation">Offrir prestation</a></li>
+                        <li><a href="{#{{ path('') }}#}" title="contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            {% block body %}{% endblock %}
+        </main>
+        <footer>
+            <p>© 2023 - Parenthèse-Enveloppée - Tous droits réservés</p>
+        </footer>
     </body>
 </html>
