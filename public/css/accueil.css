@@ -296,11 +296,6 @@ button:focus {
     display: none;
 }
 
-.info.previous--info.text.name {
-    width: 100px;
-}
-
-
 .loading__wrapper {
     position: fixed;
     left: 0;

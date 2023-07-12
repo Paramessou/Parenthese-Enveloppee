@@ -47,10 +47,6 @@ nav a:hover {
     color: #fff;
 }
 
-body {
-    margin: 0;
-}
-
 footer {
     background: linear-gradient(135deg, rgba(240, 226, 225, 1) 0%, rgba(208, 173, 171, 1) 31%, rgba(195, 146, 142, 1) 51%, rgba(175, 115, 114, 1) 100%);
     width: 100%;

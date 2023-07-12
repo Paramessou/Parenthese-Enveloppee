@@ -16,6 +16,15 @@ buttons.next.addEventListener("click", () => swapCards("right"));
 
 buttons.prev.addEventListener("click", () => swapCards("left"));
 
+document.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft" || event.key === "Left") {
+        buttons.prev.click();
+    } else if (event.key === "ArrowRight" || event.key === "Right") {
+        buttons.next.click();
+    }
+});
+
+
 function swapCards(direction) {
     const currentCardEl = cardsContainerEl.querySelector(".current--card");
     const previousCardEl = cardsContainerEl.querySelector(".previous--card");
