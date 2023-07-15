@@ -1,5 +1,4 @@
-// Gestion écran d'accueil accueil.html.twig
-console.clear();
+// Gestion des cartes sur écran d'acceuil
 
 const { gsap, imagesLoaded } = window;
 

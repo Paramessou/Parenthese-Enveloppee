@@ -1,0 +1,14 @@
+{
+  "name": "parenthese-enveloppee",
+  "version": "1.0.0",
+  "description": "package scss",
+  "main": "app.js",
+  "directories": {
+    "css": "css"
+  },
+  "scripts": {
+    "sass": "sass --style expanded css/accueil.scss css/accueil.css --watch scss:css"
+  },
+  "author": "Emerson",
+  "license": "ISC"
+}
