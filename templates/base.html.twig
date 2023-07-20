@@ -1,56 +1,45 @@
 <!DOCTYPE html>
 <html>
-
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>
-			{% block title %}Parenthèse-Enveloppée
-			{% endblock %}
-		</title>
-		<link rel="stylesheet" href="{{ asset('css/base.css') }}">
-		{% block stylesheets %}
-			{{ encore_entry_link_tags('app') }}
-		{% endblock %}
-
-		{% block javascripts %}
-			{{ encore_entry_script_tags('app') }}
-		{% endblock %}
-	</head>
-
-	<body>
-		<h1>
-			<a href="{{ path('main_accueil') }}"><img class="logo-header" src="{{ asset('img/parenthese-enveloppee-accompagnement-parental.jpg') }}" alt="logo parenthese-enveloppee"></a>
-		</h1>
-		<header>
-			<nav class="navHeader">
-				<div id="menu">
-					<button type="button" id="burger">
-						<label class="burgerBtn" for="burger">
-							<span></span>
-							<span></span>
-							<span></span>
-						</label>
-
-						<nav role="navigation" class="burgerMenu">
-							<ul>
-								<li><ahref="{#{{path('')}}#}" title="presentation">Présentation</a></li>
-								<li><ahref="{#{{path('')}}#}" title="prestations">Prestations</a></li>
-								<li><ahref="{#{{path('')}}#}" title="reserver">Réserver</a></li>
-								<li><ahref="{#{{path('')}}#}" title="offrirPrestation">Offrir prestation</a></li>
-								<li><ahref="{#{{path('')}}#}" title="contact">Contact</a></li>
-							</ul>
-						</nav>
-					</div>
-				</nav>
-			</header>
-			<main>
-				{% block body %}{% endblock %}
-			</main>
-			<footer>
-				<p>© 2023 - Parenthèse-Enveloppée - Tous droits réservés</p>
-			</footer>
-		</body>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        {% block title %}Parenthèse-Enveloppée{% endblock %}
+    </title>
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+    {% block stylesheets %}
+    {% endblock %}
+</head>
+<body>
+    <h1>
+        <a href="{{ path('main_accueil') }}"><img class="logo-header" src="{{ asset('img/parenthese-enveloppee-accompagnement-parental.jpg') }}" alt="logo parenthese-enveloppee"></a>
+    </h1>
+    <header>
+        <nav class="navHeader">
+            <div id="menu">
+                    <nav role="navigation">
+                        <ul>
+                            <li><a href="{{path('main_presentation')}}" title="presentation">Présentation</a></li>
+                            <li><a {#href="{{path('')}}"#}title="prestations">Prestations</a></li>
+                            <li><a {#href="{{path('')}}"#} title="reserver">Réserver</a></li>
+                            <li><a {#href="{{path('')}}"#} title="offrirPrestation">Offrir prestation</a></li>
+                            <li><a {#href="{{path('')}}"#} title="contact">Contact</a></li>
+                        </ul>
+                    </nav>
+            </div>
+        </nav>
+    </header>
+    <main>
+        {% block body %}{% endblock %}
+    </main>
+    <footer>
+        <p>© 2023 - Parenthèse-Enveloppée - Tous droits réservés</p>
+    </footer>
+    {% block javascripts %}
+    <script src="{{asset('https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js')}}"></script>
+	<script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js') }}"></script>
+	<script src="{{ asset('javascript/app.js') }}"></script>
+    {% endblock %}
+</body>
 </html>
