@@ -9,37 +9,39 @@
     </title>
     <link rel="stylesheet" href="{{ asset('css/base.css') }}">
     {% block stylesheets %}
+    {{ encore_entry_link_tags('app') }} 
     {% endblock %}
 </head>
 <body>
     <h1>
         <a href="{{ path('main_accueil') }}"><img class="logo-header" src="{{ asset('img/parenthese-enveloppee-accompagnement-parental.jpg') }}" alt="logo parenthese-enveloppee"></a>
     </h1>
+    {% block header %} 
     <header>
         <nav class="navHeader">
             <div id="menu">
-                    <nav role="navigation">
-                        <ul>
-                            <li><a href="{{path('main_presentation')}}" title="presentation">Présentation</a></li>
-                            <li><a {#href="{{path('')}}"#}title="prestations">Prestations</a></li>
-                            <li><a {#href="{{path('')}}"#} title="reserver">Réserver</a></li>
-                            <li><a {#href="{{path('')}}"#} title="offrirPrestation">Offrir prestation</a></li>
-                            <li><a {#href="{{path('')}}"#} title="contact">Contact</a></li>
-                        </ul>
-                    </nav>
+                    <ul>
+                        <li><a href="{{path('main_presentation')}}" title="presentation">Présentation</a></li>
+                        <li><a {#href="{{path('')}}"#}title="prestations">Prestations</a></li>
+                        <li><a {#href="{{path('')}}"#} title="reserver">Réserver</a></li>
+                        <li><a {#href="{{path('')}}"#} title="offrirPrestation">Offrir prestation</a></li>
+                        <li><a {#href="{{path('')}}"#} title="contact">Contact</a></li>
+                    </ul>
             </div>
         </nav>
     </header>
+    {% endblock %}
+    {% block body %}
     <main>
-        {% block body %}{% endblock %}
     </main>
+    {% endblock %}
+    {% block footer %} 
     <footer>
         <p>© 2023 - Parenthèse-Enveloppée - Tous droits réservés</p>
     </footer>
+    {% endblock %}
     {% block javascripts %}
-    <script src="{{asset('https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js')}}"></script>
-	<script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js') }}"></script>
-	<script src="{{ asset('javascript/app.js') }}"></script>
+    {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </body>
 </html>
