@@ -1,0 +1,109 @@
+@mixin bg-brightness($blur, $x) {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  $offset: 20%;
+  $brightness: 105%;
+  border-radius: 40px;
+  backdrop-filter: blur($blur) brightness($brightness);
+  -webkit-backdrop-filter: blur($blur) brightness($brightness);
+  -webkit-mask-image: linear-gradient(to right, black calc($x - $offset), transparent calc($x + $offset));
+}
+
+* {
+  box-sizing: border-box;
+  margin: auto;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  height: 100vh;
+  background: {
+    image: url(../img/reflexologie-bebe-six-fours-les-plages.jpg);
+    size: cover;
+    position: center;
+    attachment: scroll;
+  };
+  perspective: 1000px;
+}
+
+div {
+  &.gestion__bg {
+    position: absolute;
+    width: 40vw;
+    height: 60vh;
+    inset: 0;
+    margin: auto;
+    border-radius: 40px;
+    box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.15), 0 -10px 20px -5px rgba(0, 0, 0, 0.3) inset, 1px 2px 1px rgba(255, 255, 255, 0.5) inset, 0 150px 100px -80px rgba(0, 0, 0, 0.4);
+    animation: reveal 2s linear;
+    transform: translateY(0px) rotateY(20deg) scale(1);
+    transition: all .3s ease;
+    
+    &:hover {
+      transform: translateY(0px) rotateY(-20deg) scale(1);
+    }
+  }
+}
+span {
+  &.gestion__bg {
+    @include bg-brightness(128px, 12.5%)
+  }
+
+  &.span1 {
+    @include bg-brightness(128px, 12.5%)
+  }
+
+  &.span2 {
+    @include bg-brightness(64px, 25%)
+  }
+
+  &.span3 {
+    @include bg-brightness(32px, 37.5%)
+  }
+
+  &.span4 {
+    @include bg-brightness(16px, 50%)
+  }
+
+  &.span5 {
+    @include bg-brightness(8px, 62.5%)
+  }
+
+  &.span6 {
+    @include bg-brightness(4px, 75%)
+  }
+
+  &.span7 {
+    @include bg-brightness(2px, 87.5%)
+  }
+
+  &.span8 {
+    @include bg-brightness(2px, 120%)
+  }
+  &.txt__pages {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 100px;
+  }
+}
+
+@keyframes reveal {
+  from {
+    transform: translateY(50px) rotateX(30deg) scale(0.9);
+  }
+  to {
+    transform: translateY(0px) rotateY(20deg) scale(1);
+  }
+}

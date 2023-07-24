@@ -1,95 +1,144 @@
 * {
   box-sizing: border-box;
+  margin: auto;
 }
+
 body {
   position: relative;
   margin: 0;
   height: 100vh;
-
-  background: url(https://images.unsplash.com/photo-1583244685026-d8519b5e3d21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=4140&q=80);
+  background-image: url(../img/reflexologie-bebe-six-fours-les-plages.jpg);
   background-size: cover;
   background-position: center;
   background-attachment: scroll;
   perspective: 1000px;
 }
 
-div {
+div.gestion__bg {
   position: absolute;
   width: 40vw;
   height: 60vh;
   inset: 0;
   margin: auto;
   border-radius: 40px;
-  box-shadow: 0 2px 5px 1px rgba(0,0,0,0.15), 0 -10px 20px -5px rgba(0,0,0,0.3) inset, 1px 2px 1px rgba(255,255,255,0.5) inset, 0 150px 100px -80px rgba(0,0,0,0.4);
-  animation: reveal 4s linear(
-    0, 0.001, 0.005 1.1%, 0.02, 0.045 3.5%, 0.081 5%, 0.16 7.5%, 0.365 13.5%,
-    0.464 16.5%, 0.559, 0.64, 0.71 26.2%, 0.742, 0.771, 0.797, 0.822, 0.844,
-    0.865 36.9%, 0.885, 0.903, 0.919 43.7%, 0.933, 0.945, 0.956 51.7%,
-    0.966 54.7%, 0.973, 0.98 61.3%, 0.985 65%, 0.993 73.6%, 0.997 84.5%, 0.999
-  );
+  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.15), 0 -10px 20px -5px rgba(0, 0, 0, 0.3) inset, 1px 2px 1px rgba(255, 255, 255, 0.5) inset, 0 150px 100px -80px rgba(0, 0, 0, 0.4);
+  animation: reveal 2s linear;
   transform: translateY(0px) rotateY(20deg) scale(1);
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
-div:hover {
+div.gestion__bg:hover {
   transform: translateY(0px) rotateY(-20deg) scale(1);
 }
 
-span {
+span.gestion__bg {
   display: block;
   position: absolute;
   z-index: 1;
   inset: 0;
   width: 100%;
   height: 100%;
-  --offset: 20%;
-  --brightness: 105%;
   border-radius: 40px;
-  backdrop-filter: blur(var(--blur)) brightness(var(--brightness));
-  -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--brightness));
-  -webkit-mask-image: linear-gradient(to right, black calc(var(--x) - var(--offset)), transparent calc(var(--x) + var(--offset)));
+  backdrop-filter: blur(128px) brightness(105%);
+  -webkit-backdrop-filter: blur(128px) brightness(105%);
+  -webkit-mask-image: linear-gradient(to right, black -7.5%, transparent 32.5%);
 }
-span:nth-of-type(1) {
-  --blur: 128px;
-  --x: 12.5%;
+span.span1 {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+  backdrop-filter: blur(128px) brightness(105%);
+  -webkit-backdrop-filter: blur(128px) brightness(105%);
+  -webkit-mask-image: linear-gradient(to right, black -7.5%, transparent 32.5%);
 }
-span:nth-of-type(2) {
-  --blur: 64px;
-  --x: 25%;
+span.span2 {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+  backdrop-filter: blur(64px) brightness(105%);
+  -webkit-backdrop-filter: blur(64px) brightness(105%);
+  -webkit-mask-image: linear-gradient(to right, black 5%, transparent 45%);
 }
-span:nth-of-type(3) {
-  --blur: 32px;
-  --x: 37.5%;
+span.span3 {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+  backdrop-filter: blur(32px) brightness(105%);
+  -webkit-backdrop-filter: blur(32px) brightness(105%);
+  -webkit-mask-image: linear-gradient(to right, black 17.5%, transparent 57.5%);
 }
-span:nth-of-type(4) {
-  --blur: 16px;
-  --x: 50%;
+span.span4 {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+  backdrop-filter: blur(16px) brightness(105%);
+  -webkit-backdrop-filter: blur(16px) brightness(105%);
+  -webkit-mask-image: linear-gradient(to right, black 30%, transparent 70%);
 }
-span:nth-of-type(5) {
-  --blur: 8px;
-  --x: 62.5%;
+span.span5 {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+  backdrop-filter: blur(8px) brightness(105%);
+  -webkit-backdrop-filter: blur(8px) brightness(105%);
+  -webkit-mask-image: linear-gradient(to right, black 42.5%, transparent 82.5%);
 }
-span:nth-of-type(6) {
-  --blur: 4px;
-  --x: 75%;
+span.span6 {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+  backdrop-filter: blur(4px) brightness(105%);
+  -webkit-backdrop-filter: blur(4px) brightness(105%);
+  -webkit-mask-image: linear-gradient(to right, black 55%, transparent 95%);
 }
-span:nth-of-type(7) {
-  --blur: 2px;
-  --x: 87.5%;
+span.span7 {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+  backdrop-filter: blur(2px) brightness(105%);
+  -webkit-backdrop-filter: blur(2px) brightness(105%);
+  -webkit-mask-image: linear-gradient(to right, black 67.5%, transparent 107.5%);
 }
-span:nth-of-type(8) {
-  --blur: 2px;
-  --x: 120%;
+span.span8 {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+  backdrop-filter: blur(2px) brightness(105%);
+  -webkit-backdrop-filter: blur(2px) brightness(105%);
+  -webkit-mask-image: linear-gradient(to right, black 100%, transparent 140%);
 }
-
-@keyframes reveal {
-  from {
-    transform: translateY(50px) rotateX(30deg) scale(0.9);
-  }
-  to {
-    transform: translateY(0px) rotateY(20deg) scale(1);
-  }
-}
-.txt__pages {
+span.txt__pages {
   position: absolute;
   left: 0;
   right: 0;
@@ -101,3 +150,12 @@ span:nth-of-type(8) {
   color: white;
   padding: 100px;
 }
+
+@keyframes reveal {
+  from {
+    transform: translateY(50px) rotateX(30deg) scale(0.9);
+  }
+  to {
+    transform: translateY(0px) rotateY(20deg) scale(1);
+  }
+}/*# sourceMappingURL=fondpages.css.map */
