@@ -16,14 +16,14 @@ body {
 
 div.gestion__bg {
   position: absolute;
-  width: 40vw;
+  width: 70vw;
   height: 60vh;
   inset: 0;
   margin: auto;
   border-radius: 40px;
   box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.15), 0 -10px 20px -5px rgba(0, 0, 0, 0.3) inset, 1px 2px 1px rgba(255, 255, 255, 0.5) inset, 0 150px 100px -80px rgba(0, 0, 0, 0.4);
   animation: reveal 2s linear;
-  transform: translateY(0px) rotateY(20deg) scale(1);
+  transform: translateY(0px) rotateY(0deg) scale(1);
   transition: all 0.3s ease;
 }
 div.gestion__bg:hover {
@@ -138,7 +138,7 @@ span.span8 {
   -webkit-backdrop-filter: blur(2px) brightness(105%);
   -webkit-mask-image: linear-gradient(to right, black 100%, transparent 140%);
 }
-span.txt__pages {
+span .txt__pages {
   position: absolute;
   left: 0;
   right: 0;
@@ -148,7 +148,10 @@ span.txt__pages {
   justify-content: center;
   align-items: center;
   color: white;
-  padding: 100px;
+  padding: 30px;
+  font-size: 15px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-align: justify;
 }
 
 @keyframes reveal {
