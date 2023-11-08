@@ -14,8 +14,12 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            logout: ~
             lazy: true
             provider: app_user_provider
+             remember_me:
+                secret:   '%kernel.secret%' # required
+                lifetime: 604800
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

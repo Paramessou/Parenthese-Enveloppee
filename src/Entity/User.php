@@ -26,6 +26,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+    public function __construct()
+    {
+        $this->password = '';
+        $this->administrateur = false;
+    }
 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
@@ -47,6 +52,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 20)]
     private ?string $numeroTelephone = null;
+
+    #[ORM\Column]
+    private ?bool $administrateur = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $plainPassword = null;
 
     public function getId(): ?int
     {
@@ -102,7 +113,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): static
+    public function setPassword(string $password): self
     {
         $this->password = $password;
 
@@ -198,6 +209,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setNumeroTelephone(string $numeroTelephone): static
     {
         $this->numeroTelephone = $numeroTelephone;
+
+        return $this;
+    }
+
+    public function isAdministrateur(): ?bool
+    {
+        return $this->administrateur;
+    }
+
+    public function setAdministrateur(bool $administrateur): static
+    {
+        $this->administrateur = $administrateur;
+
+        return $this;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): static
+    {
+        $this->plainPassword = $plainPassword;
 
         return $this;
     }

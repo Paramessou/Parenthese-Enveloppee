@@ -21,11 +21,31 @@
         <nav class="navHeader">
             <div id="menu">
                     <ul>
-                        <li><a href="{{path('main_presentation')}}" title="presentation">Présentation</a></li>
+                        <li><a href="{{path('main_presentation')}}" title="présentation">Présentation</a></li>
                         <li><a {#href="{{path('')}}"#}title="prestations">Prestations</a></li>
-                        <li><a {#href="{{path('')}}"#} title="reserver">Réserver</a></li>
+                        <li><a {#href="{{path('')}}"#} title="réserver">Réserver</a></li>
                         <li><a {#href="{{path('')}}"#} title="offrirPrestation">Offrir prestation</a></li>
                         <li><a {#href="{{path('')}}"#} title="contact">Contact</a></li>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.prenom }}
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ path('profile_edit') }}">Modifier mon profil</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('logout') }}">Se déconnecter</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="{{path('main_registrationForm')}}" title="Registration">Connexion</a>
+                            </li>
+                        {% endif %}
+
                     </ul>
             </div>
         </nav>
@@ -37,7 +57,7 @@
     {% endblock %}
     {% block footer %} 
     <footer>
-        <p>© 2023 - Parenthèse-Enveloppée - Tous droits réservés</p>
+        <p>© 2023 - Parenthèse Enveloppée - Tous droits réservés</p>
     </footer>
     {% endblock %}
     {% block javascripts %}

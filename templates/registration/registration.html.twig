@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/userpage.css') }}">
+{% endblock %}
+{% block title %}Registration
+{% endblock %}
+
+{% block body %}
+	<div class="createProfil">
+		<h1>Créez votre profil ✅</h1>
+		{{ form_start(userRegistrationForm) }}
+		{{ form_row(userRegistrationForm.email) }}
+		{{ form_row(userRegistrationForm.genre) }}
+		{{ form_row(userRegistrationForm.nom) }}
+		{{ form_row(userRegistrationForm.prenom, {label:'Prénom'}) }}
+		{{ form_row(userRegistrationForm.numeroTelephone, {label:'Numéro de téléphone'}) }}
+		{{ form_row(userRegistrationForm.adresse) }}
+		{{ form_row(userRegistrationForm.codePostal) }}
+		{{ form_row(userRegistrationForm.ville) }}
+		{{ form_row(userRegistrationForm.password, {label: 'Mot de Passe'}) }}
+
+		<button type="submit" class="btn btn-register">Enregistrer</button>
+		<button type="reset" class="btn btn-delete">Effacer</button>
+		{{ form_end(userRegistrationForm) }}
+	</div>
+
+<div class="loginProfile">
+	<h1>Déjà un compte ? Connectez-vous ✅</h1>
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-success">
+			{{ message }}
+		</div>
+	{% endfor %}
+	{% if error %}
+		<div class="alert alert-danger">
+			{{ error.messageKey|trans(error.messageData, 'security') }}
+		</div>
+	{% endif %}
+	{{ form_start(userLoginForm) }}
+	{{ form_row(userLoginForm.email, {value: last_username}) }}
+	{{ form_row(userLoginForm.password, {label: 'Mot de Passe'}) }}
+
+	<button type="submit" class="btn btn-login">Se connecter</button>
+	{{ form_end(userLoginForm) }}
+</div>
+
+{% endblock %}
+
