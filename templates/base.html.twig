@@ -27,25 +27,27 @@
                         <li><a {#href="{{path('')}}"#} title="offrirPrestation">Offrir prestation</a></li>
                         <li><a {#href="{{path('')}}"#} title="contact">Contact</a></li>
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <li>
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.prenom }}
-                                    <span class="caret"></span>
+                            <li class="dropdown">
+                                <a href="#" onclick="menuDown(event)">{{ app.user.prenom }}
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="{{ path('profile_edit') }}">Modifier mon profil</a>
+                                        <a href="{{ path('profile_edit') }}">Modifier</a>
                                     </li>
                                     <li>
-                                        <a href="{{ path('logout') }}">Se déconnecter</a>
+                                        <a href="{{ path('app_logout') }}">Se déconnecter</a>
                                     </li>
                                 </ul>
                             </li>
                         {% else %}
-                            <li>
-                                <a href="{{path('main_registrationForm')}}" title="Registration">Connexion</a>
-                            </li>
+                            <div class="dropdown">
+                                <button class="dropdown-button" onclick="loginRegisterMenuDown(event)">Se connecter</button>
+                                <div class="dropdown-content">
+                                    <a href="{{path('app_login')}}" title="Connexion">Se connecter</a>
+                                    <a href="{{path('app_register')}}" title="Enregistrer">S'enregistrer</a>
+                                </div>
+                            </div>
                         {% endif %}
-
                     </ul>
             </div>
         </nav>

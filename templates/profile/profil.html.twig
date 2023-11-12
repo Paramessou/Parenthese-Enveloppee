@@ -1,14 +1,28 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
 
-{% block title %}Edit Profile
+{% block title %}Modfication du Profil
 {% endblock %}
 
 {% block body %}
-	<h1>Edit Profile</h1>
-
-	{{ form_start(form) }}
-	{{ form_widget(form) }}
+	<div class="profileEdit">
+	<h1> Modifiez votre profil ✅</h1>
+	
+	{{ form_start(profileForm) }}
+		{{ form_row(profileForm.email, {label: 'Email'}) }}
+        {{ form_row(profileForm.genre) }}
+		{{ form_row(profileForm.nom, {label: 'Nom'}) }}
+		{{ form_row(profileForm.prenom, {label: 'Prénom'}) }}
+		{{ form_row(profileForm.numeroTelephone, {label: 'Numéro de téléphone'}) }}
+		{{ form_row(profileForm.adresse, {label: 'Adresse'}) }}
+		{{ form_row(profileForm.codePostal, {label: 'Code postal'}) }}
+		{{ form_row(profileForm.ville, {label: 'Ville'}) }}
+        {{ form_row(profileForm.plainPassword, {label: 'Mot de passe'}) }}
 	<button class="btn btn-modify">Modifier</button>
     <button class="btn btn-delete-form-profile">Effacer</button>
-	{{ form_end(form) }}
+	{{ form_end(profileForm) }}
+	</div>
 {% endblock %}

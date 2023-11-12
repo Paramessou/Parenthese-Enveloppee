@@ -26,14 +26,6 @@ class UserEditType extends AbstractType
                     new Email(['message' => 'Veuillez saisir une adresse email valide'])
                 ],
             ])
-            ->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'User' => 'ROLE_USER',
-                    'Admin' => 'ROLE_ADMIN',
-                ],
-                'multiple' => true,
-                'expanded' => true,
-            ])
             ->add('password', PasswordType::class, [
                 'mapped' => false,
                 'constraints' => [

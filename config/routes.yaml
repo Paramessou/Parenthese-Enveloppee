@@ -2,9 +2,10 @@ controllers:
     resource: ../src/Controller/
     type: attribute
 
-logout:
-    path: /logout
-
 profile_edit:
     path: /profile/edit
     controller: App\Controller\ProfileController::edit
+
+logout:
+    path: /logout
+    controller: App\Controller\SecurityController::logout

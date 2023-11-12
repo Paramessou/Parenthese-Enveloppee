@@ -15,45 +15,33 @@ class ProfileController extends AbstractController
     #[Route('/profil/edit', name: 'profile_edit')]
     public function edit(Request $request, UserPasswordHasherInterface $passwordHasher, ManagerRegistry $managerRegistry): Response
     {
-        $user = $this->getUser(); // get the current user
-        $form = $this->createForm(UserEditType::class, $user); // create form
+        $user = $this->getUser(); // récupère l'utilisateur connecté
+        $form = $this->createForm(UserEditType::class, $user); // crée le formulaire avec l'utilisateur connecté
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // get data from the form
+            // récupère les données du formulaire
             $data = $form->getData();
 
-            // check if the user has submitted a new password
+            // vérifie si l'utilisateur a fourni un nouveau mot de passe
             if ($data->getPlainPassword()) {
-                // hash the plain password and set it for the user
-                $user->setPassword(
-                    $passwordHasher->hashPassword(
-                        $user,
-                        $data->getPlainPassword()
-                    )
-                );
+                // hash le nouveau mot de passe et le définit pour l'utilisateur
+                $hashedPassword = $passwordHasher->hashPassword($user, $data->getPlainPassword());
+
+                //définit le nouveau mot de passe pour l'utilisateur
+                $user->setPassword($hashedPassword);
             }
 
-            // if ($form->isSubmitted() && $form->isValid()) {
-            //     // Si l'utilisateur a fourni un nouveau mot de passe, cela le hache et le définit pour l'utilisateur
-            //     if ($user->getPlainPassword()) {
-            //         $user->setPassword(
-            //             $passwordHasher->hashPassword(
-            //                 $user,
-            //                 $user->getPlainPassword()
-            //             )
-            //         );
-            //     }
             // sauvergarde l'utilisateur dans la BDD
             $entityManager = $managerRegistry->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
+            $this->addFlash('success', 'Votre profil a bien été modifié');
 
             return $this->redirectToRoute('profile_show');
         }
         return $this->render('profile/profil.html.twig', [
-            'controller_name' => 'ProfileController',
             'profileForm' => $form->createView()
         ]);
     }

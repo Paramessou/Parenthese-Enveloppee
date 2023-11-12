@@ -262,3 +262,43 @@ const waitForImages = () => {
 };
 
 waitForImages();
+
+// Menu déroulant pour pages utilisateurs 
+function menuDown(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    document.querySelector(".dropdown-menu").classList.toggle("show");
+}
+
+window.onclick = function (event) {
+    if (!event.target.matches('.dropdown')) {
+        var dropdowns = document.getElementsByClassName("dropdown-menu");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
+    }
+}
+
+// Menu déroulant pour page connexion
+function loginRegisterMenuDown(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    document.querySelector(".login-register-dropdown-menu").classList.toggle("show");
+}
+
+window.onclick = function (event) {
+    if (!event.target.matches('.login-register-dropdown-button')) {
+        var dropdowns = document.getElementsByClassName("login-register-dropdown-menu");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
+    }
+}

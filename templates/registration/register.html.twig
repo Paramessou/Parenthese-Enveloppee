@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
+{% block title %}Créez votre profil ✅{% endblock %}
+
+{% block body %}
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+    <div class=registrationFields>
+    <h1>Créez votre profil ✅</h1>
+    {{ form_errors(registrationForm) }}
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email, {'attr': {placeholder:'Veuillez entrer votre email'}, label: false }) }}
+        {{ form_row(registrationForm.genre) }}
+		{{ form_row(registrationForm.nom, {'attr': {placeholder:'Veuillez votre Nom'}, label: false }) }}
+		{{ form_row(registrationForm.prenom, {'attr': {placeholder:'Veuillez entrer votre Prénom'}, label: false }) }}
+		{{ form_row(registrationForm.numeroTelephone, {'attr': {placeholder:"Veuillez entre votre numéro de téléphone"}, label: false }) }}
+		{{ form_row(registrationForm.adresse, {'attr': {placeholder:'Veuillez entrer votre adresse'}, label: false }) }}
+		{{ form_row(registrationForm.codePostal, {'attr': {placeholder:'Veuillez entrer le Code Postal'}, label: false }) }}
+		{{ form_row(registrationForm.ville, {'attr': {placeholder:'Veuillez entrer la ville'}, label: false }) }}
+        {{ form_row(registrationForm.plainPassword, {'attr' : {placeholder:'Veuillez entrer votre mot de passe'}, label: false}) }}
+        {{ form_row(registrationForm.agreeTerms) }}
+
+        <button type="submit" class="btn btn-register">Enregistrer</button>
+        <button type="reset" class="btn btn-delete">Effacer</button>
+    {{ form_end(registrationForm) }}
+    </div>
+{% endblock %}

@@ -351,8 +351,14 @@ button {
         }
     }
 }
+@media only screen and (min-width: 1100px) {
+    :root {
+        --card-width: 330px;
+        --card-height: 495px;
+    }
+}
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 800px) and (max-width: 1099px ) {
     :root {
         --card-width: 250px;
         --card-height: 400px;

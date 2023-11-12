@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
+
+{% block title %}Déjà un compte ? Connectez-vous ✅{% endblock %}
+
+{% block body %}
+<div class="loginFields">
+    <form method="post">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
+            </div>
+        {% endif %}
+
+    <h1 class="h3 mb-3 font-weight-normal">Déjà un compte ? Connectez-vous ✅</h1>
+
+        <label for="inputEmail">Email</label>
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="Veuillez saisir votre email">
+        <label for="inputPassword">Mot de passe</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Veuillez saisir votre mot de passe">
+
+        <input type="hidden" name="_csrf_token"
+            value="{{ csrf_token('authenticate') }}"
+        >
+
+        <button class="btn btn-lg btn-primary" type="SeConnecter">
+            Se connecter
+        </button>
+    </form>
+</div>
+{% endblock %}
