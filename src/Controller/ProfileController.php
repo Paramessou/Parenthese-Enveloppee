@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\UserEditType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,16 +22,16 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // récupère les données du formulaire
-            $data = $form->getData();
-
             // vérifie si l'utilisateur a fourni un nouveau mot de passe
-            if ($data->getPlainPassword()) {
-                // hash le nouveau mot de passe et le définit pour l'utilisateur
-                $hashedPassword = $passwordHasher->hashPassword($user, $data->getPlainPassword());
+            if ($user instanceof User) {
+                // hash le nouveau mot de passe
+                $hashedPassword = $passwordHasher->hashPassword($user, $user->getPlainPassword());
 
-                //définit le nouveau mot de passe pour l'utilisateur
-                $user->setPassword($hashedPassword);
+                // vérifie si le mot de passe haché est valide
+                if ($hashedPassword) {
+                    //définit le nouveau mot de passe pour l'utilisateur
+                    $user->setPassword($hashedPassword);
+                }
             }
 
             // sauvergarde l'utilisateur dans la BDD
@@ -39,7 +40,7 @@ class ProfileController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Votre profil a bien été modifié');
 
-            return $this->redirectToRoute('profile_show');
+            return $this->redirectToRoute('profile_edit');
         }
         return $this->render('profile/profil.html.twig', [
             'profileForm' => $form->createView()

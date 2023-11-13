@@ -263,42 +263,34 @@ const waitForImages = () => {
 
 waitForImages();
 
-// Menu déroulant pour pages utilisateurs 
-function menuDown(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    document.querySelector(".dropdown-menu").classList.toggle("show");
-}
+document.addEventListener('DOMContentLoaded', function () {
+    // Menu déroulant pour pages utilisateurs et page connexion
+    function toggleDropdown(event) {
+        event.stopPropagation();
 
-window.onclick = function (event) {
-    if (!event.target.matches('.dropdown')) {
-        var dropdowns = document.getElementsByClassName("dropdown-menu");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
-            }
+        var dropdownButton = event.target.closest('.dropdown-button');
+        if (dropdownButton) {
+            // Pour le menu de connexion ou le menu utilisateur connecté
+            dropdownButton.nextElementSibling.classList.toggle("show");
+        } else {
+            // Ferme tous les menus s'ils sont ouverts
+            var dropdowns = document.querySelectorAll(".dropdown-content");
+            dropdowns.forEach(function (dropdown) {
+                if (dropdown.classList.contains('show')) {
+                    dropdown.classList.remove('show');
+                }
+            });
         }
     }
-}
 
-// Menu déroulant pour page connexion
-function loginRegisterMenuDown(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    document.querySelector(".login-register-dropdown-menu").classList.toggle("show");
-}
+    // Gérez le clic sur les liens à l'intérieur des menus pour éviter la fermeture immédiate
+    document.querySelectorAll('.dropdown-content a').forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            event.stopPropagation();
+        });
+    });
 
-window.onclick = function (event) {
-    if (!event.target.matches('.login-register-dropdown-button')) {
-        var dropdowns = document.getElementsByClassName("login-register-dropdown-menu");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
-            }
-        }
-    }
-}
+    document.querySelectorAll('.dropdown-button').forEach(function (button) {
+        button.addEventListener('click', toggleDropdown);
+    });
+});

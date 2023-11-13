@@ -11,9 +11,8 @@
 <div class="loginFields">
     <form method="post">
         {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            <div class="alert alert-danger">Email ou Mot de passe invalide</div>
         {% endif %}
-
         {% if app.user %}
             <div class="mb-3">
                 Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>

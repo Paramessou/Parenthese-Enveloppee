@@ -73,44 +73,13 @@ nav a {
 nav a:hover {
     color: #fff;
 }
-/*------------------------------------------------------------------------------- Menus Déroulant -----------------------------------------------------------------*/
+/*------------------------------------------------------------------------------- Menus Déroulants -----------------------------------------------------------------*/
+
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    min-width: 195px;
-    border-radius: 5px;
-    left: 0;
-    margin-left: -40px;
-    text-align: left;
-    background: linear-gradient(180deg, transparent 11%, #d2b4b3 8%, #dbc2c0 100%);
-    z-index: 3;
-}
-
-.dropdown-menu a {
-    color: #000;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    font-size: 15px;
-    font-family: 'Mali-Regular', 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-
-.dropdown-menu a:hover {
-    background-color: none;
-    color: #fff;
-}
-
-.dropdown-menu.show {
-    display: block;
-
-}
-
-/* Menu déroulant se connecter et s'inscrire */
 .dropdown-button {
     background: transparent;
     padding: 12px 16px;
@@ -123,12 +92,11 @@ nav a:hover {
 .dropdown-content {
     display: none;
     position: absolute;
-    margin-left: -10px;
     border-radius: 5px;
     font-family: 'Mali-Regular', 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     background: linear-gradient(180deg, transparent 6%, #d2b4b3 7%, #dbc2c0 100%);
+    text-align: left;
     min-width: 160px;
-    /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */
     z-index: 1;
 }
 
