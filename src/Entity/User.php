@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -32,6 +34,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->password = '';
         $this->administrateur = false;
+        $this->appointments = new ArrayCollection();
+        $this->userServices = new ArrayCollection();
     }
 
     #[ORM\Column(length: 255)]
@@ -63,6 +67,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
+
+    #[ORM\OneToMany(mappedBy: 'userId', targetEntity: Appointment::class)]
+    private Collection $appointments;
+
+    #[ORM\OneToMany(mappedBy: 'userId', targetEntity: UserService::class)]
+    private Collection $userServices;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $nombreRdv = null;
 
     public function getId(): ?int
     {
@@ -246,6 +259,78 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Appointment>
+     */
+    public function getAppointments(): Collection
+    {
+        return $this->appointments;
+    }
+
+    public function addAppointment(Appointment $appointment): static
+    {
+        if (!$this->appointments->contains($appointment)) {
+            $this->appointments->add($appointment);
+            $appointment->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAppointment(Appointment $appointment): static
+    {
+        if ($this->appointments->removeElement($appointment)) {
+            // set the owning side to null (unless already changed)
+            if ($appointment->getUserId() === $this) {
+                $appointment->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserService>
+     */
+    public function getUserServices(): Collection
+    {
+        return $this->userServices;
+    }
+
+    public function addUserService(UserService $userService): static
+    {
+        if (!$this->userServices->contains($userService)) {
+            $this->userServices->add($userService);
+            $userService->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserService(UserService $userService): static
+    {
+        if ($this->userServices->removeElement($userService)) {
+            // set the owning side to null (unless already changed)
+            if ($userService->getUserId() === $this) {
+                $userService->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getNombreRdv(): ?int
+    {
+        return $this->nombreRdv;
+    }
+
+    public function setNombreRdv(int $nombreRdv): static
+    {
+        $this->nombreRdv = $nombreRdv;
 
         return $this;
     }

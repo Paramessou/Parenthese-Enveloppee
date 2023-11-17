@@ -23,7 +23,7 @@
                     <ul>
                         <li><a href="{{path('main_presentation')}}" title="présentation">Présentation</a></li>
                         <li><a {#href="{{path('')}}"#}title="prestations">Prestations</a></li>
-                        <li><a {#href="{{path('')}}"#} title="réserver">Réserver</a></li>
+                        <li><a href="{{path('app_calendar')}}"} title="réserver">Réserver</a></li>
                         <li><a {#href="{{path('')}}"#} title="offrirPrestation">Offrir prestation</a></li>
                         <li><a {#href="{{path('')}}"#} title="contact">Contact</a></li>
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
@@ -42,6 +42,9 @@
                                     <a href="{{path('app_register')}}" title="Enregistrer">S'enregistrer</a>
                                 </div>
                             </div>
+                        {% endif %}
+                        {% if is_granted("ROLE_ADMIN")%}
+                            <li><a href="{{path('admin_dashboard')}}" title="admin">Admin</a></li>
                         {% endif %}
                     </ul>
             </div>

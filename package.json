@@ -10,5 +10,11 @@
     "sass": "sass --style expanded css/accueil.scss css/accueil.css --watch scss:css"
   },
   "author": "Emerson",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@fullcalendar/daygrid": "^6.1.9",
+    "@fullcalendar/list": "^6.1.9",
+    "@fullcalendar/timegrid": "^6.1.9",
+    "fullcalendar": "^6.1.9"
+  }
 }

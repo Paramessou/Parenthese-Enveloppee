@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/adminpage.css') }}">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block title %}Prestations{% endblock %}
+
+{% block body %}
+<div class="arrayServices">
+ <h1>Prestations</h1>
+
+ <table>
+     <thead>
+         <tr>
+             <th>Nom</th>
+             <th>Prix</th>
+             <th>Durée</th>
+             <th>Actions</th>
+         </tr>
+     </thead>
+     <tbody>
+         {% for service in services %}
+             <tr id="service-{{ service.id }}">
+                <td>{{ service.nom }}</td>
+                <td>{{ service.prix }}</td>
+                <td>{{ service.duree }}</td>
+                <td>
+                   <a href="{{ path('admin_prestations', {'id': service.id}) }}" class="edit-button">Modifier</a>
+                </td>
+             </tr>
+         {% endfor %}
+     </tbody>
+ </table>
+
+        {% for service in services %}
+            <div id="edit-form-{{ service.id }}">
+                {{ form_start(serviceForms[service.id]) }}
+                    {{ form_widget(serviceForms[service.id]) }}
+                    <button class="btn btn-primary save-button">Enregistrer</button>
+                    <a href="{{ path('admin_prestations') }}" class="cancel-button">Annuler</a>
+                {{ form_end(serviceForms[service.id]) }}
+            </div>
+        {% endfor %}
+
+ </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var serviceId; // Définition de la variable globale
+
+        $('.edit-button').on('click', function(event) {
+            event.preventDefault();
+            // Récupère l'id de la prestation à modifier    
+            serviceId = $(this).closest('tr').attr('id').split('-')[1];
+            var rightFrameId = '#edit-form-' + serviceId;
+            $.ajax({
+                url: '/prestations/edit/' + serviceId,
+                method: 'GET',
+                success: function(data) {
+                    // Insère le formulaire de modification dans le cadre de droite
+                    $(rightFrameId).html(data);
+                    $(rightFrameId).show();
+                }
+            });
+        });
+
+        $('.save-button').on('click', function(event) {
+            event.preventDefault();
+            var updatedService = { nom: $('#service_nom').val(), prix: $('#service_prix').val(), duree: $('#service_duree').val() };
+            var rightFrameId = '#edit-form-' + serviceId;
+            $.ajax({
+                url: '/prestations/edit/' + serviceId,
+                method: 'POST',
+                data: JSON.stringify(updatedService),
+                contentType: 'application/json',
+                success: function(data) {
+                    // Les modifications ont été enregistrées avec succès
+                    $(rightFrameId).html('data');
+
+                    $(rightFrameId).show();
+
+                },
+                error: function() {
+                    // Une erreur s'est produite lors de l'enregistrement des modifications
+                }
+            });
+        });
+
+         $('.cancel-button').on('click', function(event) {
+            event.preventDefault();
+            var rightFrameId = '#edit-form-' + serviceId;
+            $(rightFrameId).css('visibility', 'hidden');
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/calendrier.css') }}">
+{% endblock %}
+{% block title %}Calendrier{% endblock %}
+
+{% block body %}
+<div class="calendar">
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <h1>Réserver</h1>
+        {% else %}
+            <h1>Calendrier</h1>
+    {% endif %}
+    <div id='calendar'></div>
+</div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('../node_modules/fullcalendar/index.global.min.js') }}"></script>
+    <script src="{{ asset('../node_modules/@fullcalendar/core/locales/fr.global.min.js') }}"></script>
+       <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridWeek',
+                locale: 'fr',
+                timeZone: 'Europe/Paris',
+                allDaySlot: false,
+                slotMinTime: '08:00:00',
+                slotMaxTime: '19:00:00',
+                selectable: true,
+                // ajout contrainte pour les jours et les heures ici dayOfWeek === 1 (lundi)  || dayOfWeek === 3 (mercredi) || dayOfWeek === 4
+                selectConstraint: {
+                    selectAllow: function(selectInfo) {
+                        var startDate = selectInfo.start;
+                        var dayOfWeek = startDate.getDay();
+                        if (dayOfWeek === 1 || dayOfWeek === 3 || dayOfWeek === 4 || dayOfWeek === 5) {
+                            if (dayOfWeek === 1 || dayOfWeek === 3) {
+                                if (startDate.getHours() < 15 || startDate.getHours() >= 19) {
+                                return false; 
+                                }
+                            }
+                            if (dayOfWeek === 4 || dayOfWeek === 5) {
+                                if (startDate.getHours() < 8 || startDate.getHours() >= 11) {
+                                    return false;
+                                }
+                            }
+                        }
+                        return true;
+                    }
+                },
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek',
+                },
+
+            });
+                calendar.render();
+        });
+    </script>
+{% endblock %}

@@ -1,15 +1,29 @@
 // Gestion des cartes sur écran d'acceuil
+if (typeof window.gsap === 'undefined') {
+    window.gsap = require('gsap');
+}
 
-const { gsap, imagesLoaded } = window;
+if (typeof window.imagesLoaded === 'undefined') {
+    window.imagesLoaded = require('imagesLoaded');
+}
+if (typeof window.buttons === 'undefined') {
+    window.buttons = {
+        prev: document.querySelector(".btn--left"),
+        next: document.querySelector(".btn--right"),
+    };
+}
 
-const buttons = {
-    prev: document.querySelector(".btn--left"),
-    next: document.querySelector(".btn--right"),
-};
-const cardsContainerEl = document.querySelector(".cards__wrapper");
-const appBgContainerEl = document.querySelector(".app__bg");
+if (typeof window.cardsContainerEl === 'undefined') {
+    window.cardsContainerEl = document.querySelector(".cards__wrapper");
+}
 
-const cardInfosContainerEl = document.querySelector(".info__wrapper");
+if (typeof window.appBgContainerEl === 'undefined') {
+    window.appBgContainerEl = document.querySelector(".app__bg");
+}
+
+if (typeof window.cardInfosContainerEl === 'undefined') {
+    window.cardInfosContainerEl = document.querySelector(".info__wrapper");
+}
 
 buttons.next.addEventListener("click", () => swapCards("right"));
 
@@ -217,52 +231,56 @@ function init() {
         );
 }
 
-const waitForImages = () => {
-    const images = [...document.querySelectorAll("img")];
-    const totalImages = images.length;
-    let loadedImages = 0;
-    const loaderEl = document.querySelector(".loader span");
+if (typeof window.waitForImages === 'undefined') {
+    window.waitForImages = function () {
 
-    gsap.set(cardsContainerEl.children, {
-        "--card-translateY-offset": "100vh",
-    });
-    gsap.set(cardInfosContainerEl.querySelector(".current--info").querySelectorAll(".text"), {
-        translateY: "40px",
-        opacity: 0,
-    });
-    gsap.set([buttons.prev, buttons.next], {
-        pointerEvents: "none",
-        opacity: "0",
-    });
+        const images = [...document.querySelectorAll("img")];
+        const totalImages = images.length;
+        let loadedImages = 0;
+        const loaderEl = document.querySelector(".loader span");
 
-    images.forEach((image) => {
-        imagesLoaded(image, (instance) => {
-            if (instance.isComplete) {
-                loadedImages++;
-                let loadProgress = loadedImages / totalImages;
-
-                gsap.to(loaderEl, {
-                    duration: 1,
-                    scaleX: loadProgress,
-                    backgroundColor: `hsl(${loadProgress * 120}, 100%, 50%`,
-                });
-
-                if (totalImages == loadedImages) {
-                    gsap.timeline()
-                        .to(".loading__wrapper", {
-                            duration: 0.8,
-                            opacity: 0,
-                            pointerEvents: "none",
-                        })
-                        .call(() => init());
-                }
-            }
+        gsap.set(cardsContainerEl.children, {
+            "--card-translateY-offset": "100vh",
         });
-    });
-};
+        gsap.set(cardInfosContainerEl.querySelector(".current--info").querySelectorAll(".text"), {
+            translateY: "40px",
+            opacity: 0,
+        });
+        gsap.set([buttons.prev, buttons.next], {
+            pointerEvents: "none",
+            opacity: "0",
+        });
+
+        images.forEach((image) => {
+            imagesLoaded(image, (instance) => {
+                if (instance.isComplete) {
+                    loadedImages++;
+                    let loadProgress = loadedImages / totalImages;
+
+                    gsap.to(loaderEl, {
+                        duration: 1,
+                        scaleX: loadProgress,
+                        backgroundColor: `hsl(${loadProgress * 120}, 100%, 50%`,
+                    });
+
+                    if (totalImages == loadedImages) {
+                        gsap.timeline()
+                            .to(".loading__wrapper", {
+                                duration: 0.8,
+                                opacity: 0,
+                                pointerEvents: "none",
+                            })
+                            .call(() => init());
+                    }
+                }
+            });
+        });
+    };
+};   
 
 waitForImages();
 
+//-------------------- Gestion Menus Déroulants --------------------
 document.addEventListener('DOMContentLoaded', function () {
     // Menu déroulant pour pages utilisateurs et page connexion
     function toggleDropdown(event) {

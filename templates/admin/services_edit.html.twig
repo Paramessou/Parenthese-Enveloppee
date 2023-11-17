@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+    
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/adminpage.css') }}">
+{% endblock %}
+
+{% block title %}Edition de prestation{% endblock %}
+
+{% block body %}
+    <div class="formPrestation">
+        <h1>Edition de prestation</h1>
+        {% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+		{% endfor %}
+        {{ form_start(serviceForm) }}
+            {{ form_row(serviceForm.nom, {'attr': {class:'champs champsNom'} }) }}
+            {{ form_row(serviceForm.prix, {'attr': {class:'champs champsPrix'} }) }}
+            {{ form_row(serviceForm.duree, {'attr': {class:'champs champsDuree'} }) }}
+            <button class="btn btn-save">Enregistrer</button>
+            <button type="button" class="btn btn-cancel" formnovalidate>Annuler</button>
+        {{ form_end(serviceForm) }}
+    </div>
+{% endblock %}
+{% block javascripts %}
+     <script>
+        document.querySelector('.btn-cancel').addEventListener('click', function() {
+            window.location.href = '{{ path('admin_dashboard') }}'; // Remplacez 'route_to_redirect' par le nom de votre route de redirection
+        });
+    </script>
+{% endblock %}

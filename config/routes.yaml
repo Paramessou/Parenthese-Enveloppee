@@ -9,3 +9,8 @@ profile_edit:
 logout:
     path: /logout
     controller: App\Controller\SecurityController::logout
+
+profile_delete:
+    path: '/profil/supprime'
+    controller: 'App\Controller\ProfileController::delete'
+    methods: ['DELETE']

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/adminpage.css') }}">
+{% endblock %}
+{% block title %}Administrateur{% endblock %}
+
+{% block body %}
+
+<div class="adminBody">
+    <h1>Salut {{ app.user.prenom }}! ✅</h1>
+    <a href="{{ path('admin_services_edit') }}">Ajouter une prestation</a>
+    <a href="{{ path('admin_prestations') }}">Modifier les prestations</a>
+</div>
+{% endblock %}

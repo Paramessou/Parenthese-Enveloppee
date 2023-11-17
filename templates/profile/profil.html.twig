@@ -26,7 +26,38 @@
 		{{ form_row(profileForm.ville, {label: 'Ville'}) }}
         {{ form_row(profileForm.plainPassword, {label: 'Mot de passe'}) }}
 	<button class="btn btn-modify">Modifier</button>
-    <button class="btn btn-delete-profile">Supprimer profil</button>
+    <button id="btn-delete-profile" class="btn">Supprimer mon profil</button>
+	<input type="hidden" id="csrf-token" value="{{ csrf_token('delete_user') }}">
 	{{ form_end(profileForm) }}
 	</div>
+{% endblock %}
+{% block javascripts %}
+	<script>
+		//------------------------- Suppression du profil utilisateur -------------------------	
+		document.getElementById('btn-delete-profile').addEventListener('click', function(event) {
+			event.preventDefault();
+
+			if (confirm('êtes vous certain de vouloir supprimer votre profil?')) {
+				const csrfToken = document.getElementById('csrf-token').value;
+
+				fetch('/profil/supprime', {
+					method: 'POST', // Change the method to POST
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded', // Change the content type to application/x-www-form-urlencoded
+						'X-Requested-With': 'XMLHttpRequest',
+						'X-CSRF-TOKEN': csrfToken
+					},
+					body: new URLSearchParams({
+						'_method': 'DELETE' // Add a hidden field with the name _method and set its value to DELETE
+					})
+				}).then(function(response) {
+					if (response.ok) {
+						window.location.href = '/'; // Redirige l'utilisateur vers la page d'accueil
+					} else {
+						alert('Une erreur s\'est produite lors de la suppression du profil.');
+					}
+				});
+			}
+		});
+</script>
 {% endblock %}
