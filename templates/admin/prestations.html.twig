@@ -50,50 +50,101 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
-        var serviceId; // Définition de la variable globale
+        var serviceId;  // Définit la variable serviceId en dehors de la fonction pour qu'elle soit accessible à toutes les fonctions (variable globale)
 
-        $('.edit-button').on('click', function(event) {
-            event.preventDefault();
-            // Récupère l'id de la prestation à modifier    
-            serviceId = $(this).closest('tr').attr('id').split('-')[1];
-            var rightFrameId = '#edit-form-' + serviceId;
-            $.ajax({
-                url: '/prestations/edit/' + serviceId,
-                method: 'GET',
-                success: function(data) {
-                    // Insère le formulaire de modification dans le cadre de droite
-                    $(rightFrameId).html(data);
-                    $(rightFrameId).show();
+            
+            $('.edit-button').on('click', function(event) {
+                event.preventDefault();
+            
+                // Récupère l'id de la prestation à modifier
+                var trId = $(this).closest('tr').attr('id');
+                console.log('trId', trId);
+            
+                // Initialise la variable serviceId
+                serviceId = trId.split('-')[1];
+                console.log('serviceId', serviceId);
+            
+                // Vérifie si le formulaire de modification existe déjà dans le cache
+                if (!$('#edit-form-' + serviceId).length) {
+                    // Si le formulaire n'existe pas dans le cache, récupère-le depuis le serveur
+                    console.log('service id avant requête ajax', serviceId);
+                    $.ajax({
+                        url: '/prestations/edit/' + serviceId,
+                        method: 'GET',
+                        success: function(data) {
+                            // Insère le formulaire de modification dans le cadre de droite
+                            $(document.body).append(data);
+                            $('#edit-form-' + serviceId).hide(); // Cache le formulaire de modification
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            // Handle error here
+                            console.log('Error: ' + textStatus + ', ' + errorThrown);
+                        }
+                    });
                 }
+            
+                // Affiche le formulaire de modification
+                $('#edit-form-' + serviceId).show();
             });
-        });
 
-        $('.save-button').on('click', function(event) {
-            event.preventDefault();
-            var updatedService = { nom: $('#service_nom').val(), prix: $('#service_prix').val(), duree: $('#service_duree').val() };
-            var rightFrameId = '#edit-form-' + serviceId;
-            $.ajax({
-                url: '/prestations/edit/' + serviceId,
-                method: 'POST',
-                data: JSON.stringify(updatedService),
-                contentType: 'application/json',
-                success: function(data) {
-                    // Les modifications ont été enregistrées avec succès
-                    $(rightFrameId).html('data');
-
-                    $(rightFrameId).show();
-
-                },
-                error: function() {
-                    // Une erreur s'est produite lors de l'enregistrement des modifications
+            $('.save-button').on('click', function(event) {
+                event.preventDefault();
+            
+                // Récupère l'id de la prestation à modifier
+                var divId = $(this).closest('div').attr('id');
+                console.log('divId', divId);
+            
+                // Initialise la variable serviceId
+                serviceId = divId.replace('edit-form-', '');
+                console.log('serviceId', serviceId);
+            
+                // Si la variable serviceId est toujours undefined, c'est que le bouton n'a pas été cliqué sur un élément tr
+                if (serviceId === undefined) {
+                    // Affiche un message d'erreur
+                    alert('Vous devez cliquer sur un élément div pour modifier une prestation');
+            
+                    // Empêche la requête AJAX de se produire
+                    return false;
                 }
-            });
-        });
+            
+                var nom = $('#service_nom').val();
+                var prix = $('#service_prix').val();
+                var duree = $('#service_duree').val();
 
+
+                if (!nom || !prix || !duree) {
+                    alert('Vous devez remplir tous les champs');
+                    return false;
+                }
+                // Récupère les valeurs des champs du formulaire
+                var updatedService = {
+                    nom: $('#service_nom').val(),
+                    prix: $('#service_prix').val(),
+                    duree: $('#service_duree').val()
+                };
+            
+                // Effectue la requête AJAX
+                $.ajax({
+                    url: 'prestations/edit/' + serviceId,
+                    method: 'POST',
+                    data: JSON.stringify(updatedService),
+                    contentType: 'application/json',
+                    success: function(data) {
+                        // Les modifications ont été enregistrées avec succès
+                        $(FrameId).html('data');
+                        $(FrameId).hide();
+                    },
+                    error: function() {
+                        // Une erreur s'est produite lors de l'enregistrement des modifications
+                    }
+                });
+            });
+            
+            
          $('.cancel-button').on('click', function(event) {
             event.preventDefault();
-            var rightFrameId = '#edit-form-' + serviceId;
-            $(rightFrameId).css('visibility', 'hidden');
+            var FrameId = '#edit-form-' + serviceId;
+            $(FrameId).css('visibility', 'hidden');
         });
     </script>
 {% endblock %}

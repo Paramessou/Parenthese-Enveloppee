@@ -29,52 +29,45 @@ class AdminController extends AbstractController
     {
         $service = $id ? $serviceRepository->find($id) : new Service();
 
-        $form = $this->createForm(ServicesType::class, $service);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManagerInterface->persist($service);
-            $entityManagerInterface->flush();
-            $this->addFlash('success', 'La prestation a bien été ajoutée');
-        }
-
-        // Si la requête est une requête AJAX, je renvoie le formulaire de modification de la prestation
-        if ($request->isXmlHttpRequest()) {
-            return $this->render('admin/services_edit.html.twig', [
-                'serviceForm' => $form->createView(),
-            ]);
-        }
-
-        // Si c'est une requête AJAX, traiter les modifications
-        if ($request->isXmlHttpRequest()) {
+        if ($request->isMethod('POST')) {
+            // Requête AJAX
             $service = $serviceRepository->find($id);
             $service->setNom($request->request->get('nom'));
             $service->setPrix($request->request->get('prix'));
             $service->setDuree($request->request->get('duree'));
             $entityManagerInterface->persist($service);
             $entityManagerInterface->flush();
-            return new JsonResponse(['success', 'la prestation a bien été modifiée' => true]);
-        }
+            return new JsonResponse(['success' => true]);
+        } else {
+            // Procédure normale d'AJAX
+            $form = $this->createForm(ServicesType::class, $service);
+            $form->handleRequest($request);
 
-        return $this->render('admin/services_edit.html.twig', [
-            'services' => $serviceRepository->findAll(),
-            'serviceForm' => $form->createView(),
-        ]);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManagerInterface->persist($service);
+                $entityManagerInterface->flush();
+                $this->addFlash('success', 'La prestation a bien été ajoutée');
+            }
+
+            return $this->render('admin/services_edit.html.twig', [
+                'serviceForm' => $form->createView(),
+            ]);
+        }
     }
 
     #[Route('/prestations', name: 'prestations', methods: ['GET', 'POST'])]
     public function prestations(ServiceRepository $serviceRepository): Response
     {
         $services = $serviceRepository->findAll();
-        $serviceForms = [];
+        $form = [];
+
         foreach ($services as $service) {
-            $form = $this->createForm(ServicesType::class, $service);
-            $serviceForms[$service->getId()] = $form->createView();
+            $form[$service->getId()] = $this->createForm(ServicesType::class, $service)->createView();
         }
 
         return $this->render('admin/prestations.html.twig', [
             'services' => $services,
-            'serviceForms' => $serviceForms,
+            'serviceForms' => $form,
         ]);
     }
 }
