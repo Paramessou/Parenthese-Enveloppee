@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class ProfileController extends AbstractController
 {
-    #[Route('/profil/edit', name: 'profile_edit')]
+    #[Route('/profile/edit', name: 'profile_edit')]
     public function edit(Request $request, UserPasswordHasherInterface $passwordHasher, ManagerRegistry $managerRegistry): Response
     {
         $user = $this->getUser(); // récupère l'utilisateur connecté
@@ -52,8 +52,7 @@ class ProfileController extends AbstractController
             'profileForm' => $form->createView()
         ]);
     }
-
-    #[Route('/profil/delete', name: 'profile_delete', methods: ['DELETE'])]
+    #[Route('/profile/delete', name: 'profile_delete', methods: ['DELETE'])]
     public function delete(Request $request, ManagerRegistry $managerRegistry): Response
     {
         $user = $this->getUser(); // récupère l'utilisateur connecté
@@ -68,6 +67,9 @@ class ProfileController extends AbstractController
                     $entityManager = $managerRegistry->getManager();
                     $entityManager->remove($userToDelete);
                     $entityManager->flush();
+
+                    $session = new Session();
+                    $session->invalidate();
 
                     return new Response('', Response::HTTP_NO_CONTENT);
                 }

@@ -11,6 +11,6 @@ logout:
     controller: App\Controller\SecurityController::logout
 
 profile_delete:
-    path: '/profil/supprime'
+    path: '/profile/delete'
     controller: 'App\Controller\ProfileController::delete'
     methods: ['DELETE']

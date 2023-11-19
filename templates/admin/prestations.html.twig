@@ -107,9 +107,9 @@
                     return false;
                 }
             
-                var nom = $('#service_nom').val();
-                var prix = $('#service_prix').val();
-                var duree = $('#service_duree').val();
+                var nom = $('#edit-form-' + serviceId + ' #services_nom').val();
+                var prix = $('#edit-form-' + serviceId + ' #services_prix').val();
+                var duree = $('#edit-form-' + serviceId + ' #services_duree').val();
 
 
                 if (!nom || !prix || !duree) {
@@ -118,9 +118,9 @@
                 }
                 // Récupère les valeurs des champs du formulaire
                 var updatedService = {
-                    nom: $('#service_nom').val(),
-                    prix: $('#service_prix').val(),
-                    duree: $('#service_duree').val()
+                    nom: nom,
+                    prix: prix,
+                    duree: duree,
                 };
             
                 // Effectue la requête AJAX
@@ -131,8 +131,10 @@
                     contentType: 'application/json',
                     success: function(data) {
                         // Les modifications ont été enregistrées avec succès
-                        $(FrameId).html('data');
-                        $(FrameId).hide();
+                        if($(".alertConf").length > 0){
+                            $(".alertConf").remove();
+                        }
+                        $(".arrayServices").prepend("<span class='alertConf'>Modifications effectuées avec succès.</span>");
                     },
                     error: function() {
                         // Une erreur s'est produite lors de l'enregistrement des modifications

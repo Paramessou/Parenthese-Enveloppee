@@ -40,7 +40,7 @@
 			if (confirm('êtes vous certain de vouloir supprimer votre profil?')) {
 				const csrfToken = document.getElementById('csrf-token').value;
 
-				fetch('/profil/supprime', {
+				fetch('/parenthese-enveloppee/public/profile/delete', {
 					method: 'POST', // Change the method to POST
 					headers: {
 						'Content-Type': 'application/x-www-form-urlencoded', // Change the content type to application/x-www-form-urlencoded
@@ -52,12 +52,12 @@
 					})
 				}).then(function(response) {
 					if (response.ok) {
-						window.location.href = '/'; // Redirige l'utilisateur vers la page d'accueil
+						window.location.href = '/parenthese-enveloppee/public'; // Redirige l'utilisateur vers la page d'accueil
 					} else {
 						alert('Une erreur s\'est produite lors de la suppression du profil.');
 					}
 				});
 			}
 		});
-</script>
+	</script>
 {% endblock %}

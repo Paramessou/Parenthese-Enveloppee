@@ -28,13 +28,9 @@ class Service
     #[ORM\OneToMany(mappedBy: 'serviceId', targetEntity: Appointment::class)]
     private Collection $appointments;
 
-    #[ORM\OneToMany(mappedBy: 'serviceId', targetEntity: UserService::class)]
-    private Collection $userServices;
-
     public function __construct()
     {
         $this->appointments = new ArrayCollection();
-        $this->userServices = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -102,36 +98,6 @@ class Service
             // set the owning side to null (unless already changed)
             if ($appointment->getServiceId() === $this) {
                 $appointment->setServiceId(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, UserService>
-     */
-    public function getUserServices(): Collection
-    {
-        return $this->userServices;
-    }
-
-    public function addUserService(UserService $userService): static
-    {
-        if (!$this->userServices->contains($userService)) {
-            $this->userServices->add($userService);
-            $userService->setServiceId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUserService(UserService $userService): static
-    {
-        if ($this->userServices->removeElement($userService)) {
-            // set the owning side to null (unless already changed)
-            if ($userService->getServiceId() === $this) {
-                $userService->setServiceId(null);
             }
         }
 

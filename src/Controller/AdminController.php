@@ -31,10 +31,12 @@ class AdminController extends AbstractController
 
         if ($request->isMethod('POST')) {
             // Requête AJAX
+            $data = json_decode($request->getContent());
+            //print_r($data);
             $service = $serviceRepository->find($id);
-            $service->setNom($request->request->get('nom'));
-            $service->setPrix($request->request->get('prix'));
-            $service->setDuree($request->request->get('duree'));
+            $service->setNom($data->nom);
+            $service->setPrix($data->prix);
+            $service->setDuree($data->duree);
             $entityManagerInterface->persist($service);
             $entityManagerInterface->flush();
             return new JsonResponse(['success' => true]);

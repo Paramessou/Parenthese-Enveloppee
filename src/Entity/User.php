@@ -35,7 +35,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->password = '';
         $this->administrateur = false;
         $this->appointments = new ArrayCollection();
-        $this->userServices = new ArrayCollection();
     }
 
     #[ORM\Column(length: 255)]
@@ -70,9 +69,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'userId', targetEntity: Appointment::class)]
     private Collection $appointments;
-
-    #[ORM\OneToMany(mappedBy: 'userId', targetEntity: UserService::class)]
-    private Collection $userServices;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $nombreRdv = null;
@@ -287,36 +283,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($appointment->getUserId() === $this) {
                 $appointment->setUserId(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, UserService>
-     */
-    public function getUserServices(): Collection
-    {
-        return $this->userServices;
-    }
-
-    public function addUserService(UserService $userService): static
-    {
-        if (!$this->userServices->contains($userService)) {
-            $this->userServices->add($userService);
-            $userService->setUserId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUserService(UserService $userService): static
-    {
-        if ($this->userServices->removeElement($userService)) {
-            // set the owning side to null (unless already changed)
-            if ($userService->getUserId() === $this) {
-                $userService->setUserId(null);
             }
         }
 

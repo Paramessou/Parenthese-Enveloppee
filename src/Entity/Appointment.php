@@ -39,6 +39,9 @@ class Appointment
     #[ORM\JoinColumn(nullable: false)]
     private ?Service $serviceId = null;
 
+    #[ORM\OneToOne(mappedBy: 'appointmentId', cascade: ['persist', 'remove'])]
+    private ?Payment $payment = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -125,6 +128,23 @@ class Appointment
     public function setServiceId(?Service $serviceId): static
     {
         $this->serviceId = $serviceId;
+
+        return $this;
+    }
+
+    public function getPayment(): ?Payment
+    {
+        return $this->payment;
+    }
+
+    public function setPayment(Payment $payment): static
+    {
+        // set the owning side of the relation if necessary
+        if ($payment->getAppointmentId() !== $this) {
+            $payment->setAppointmentId($this);
+        }
+
+        $this->payment = $payment;
 
         return $this;
     }
