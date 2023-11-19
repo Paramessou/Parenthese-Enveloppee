@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class ProfileController extends AbstractController
 {
@@ -34,13 +33,15 @@ class ProfileController extends AbstractController
 
                     // vérifie si le mot de passe haché est valide
                     if ($hashedPassword) {
-                        //définit le nouveau mot de passe pour l'utilisateur
+                        // définit le nouveau mot de passe pour l'utilisateur
                         $user->setPassword($hashedPassword);
+                        // supprime le stockage du mot de passe en clair
+                        $user->setPlainPassword(null);
                     }
                 }
             }
 
-            // sauvergarde l'utilisateur dans la BDD
+            // sauvegarde l'utilisateur dans la BDD
             $entityManager = $managerRegistry->getManager();
             $entityManager->persist($user);
             $entityManager->flush();

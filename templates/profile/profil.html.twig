@@ -41,14 +41,14 @@
 				const csrfToken = document.getElementById('csrf-token').value;
 
 				fetch('/parenthese-enveloppee/public/profile/delete', {
-					method: 'POST', // Change the method to POST
+					method: 'POST', // Change la méthode pour que Symfony comprenne qu'il s'agit d'une méthode POST
 					headers: {
-						'Content-Type': 'application/x-www-form-urlencoded', // Change the content type to application/x-www-form-urlencoded
+						'Content-Type': 'application/x-www-form-urlencoded', // Change le content type pour que Symfony comprenne qu'il s'agit d'une requête POST
 						'X-Requested-With': 'XMLHttpRequest',
 						'X-CSRF-TOKEN': csrfToken
 					},
 					body: new URLSearchParams({
-						'_method': 'DELETE' // Add a hidden field with the name _method and set its value to DELETE
+						'_method': 'DELETE' // Ajoute le champ _method avec la valeur DELETE pour que Symfony comprenne qu'il s'agit d'une suppression
 					})
 				}).then(function(response) {
 					if (response.ok) {

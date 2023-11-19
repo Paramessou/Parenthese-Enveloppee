@@ -15,6 +15,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordC
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\SecurityRequestAttributes;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
@@ -48,8 +49,12 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-
         return new RedirectResponse($this->urlGenerator->generate('main_accueil'));
+    }
+
+    private function getTargetPath(SessionInterface $session, string $firewallName): ?string
+    {
+        return $session->get('_security.' . $firewallName . '.target_path');
     }
 
     protected function getLoginUrl(Request $request): string

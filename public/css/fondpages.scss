@@ -8,9 +8,10 @@
   $offset: 20%;
   $brightness: 105%;
   border-radius: 40px;
-  backdrop-filter: blur($blur) brightness($brightness);
   -webkit-backdrop-filter: blur($blur) brightness($brightness);
+  backdrop-filter: blur($blur) brightness($brightness);
   -webkit-mask-image: linear-gradient(to right, black calc($x - $offset), transparent calc($x + $offset));
+  mask-image: linear-gradient(to right, black calc($x - $offset), transparent calc($x + $offset));
 }
 
 * {
