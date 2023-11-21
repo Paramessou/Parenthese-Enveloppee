@@ -28,6 +28,7 @@
                 slotMinTime: '08:00:00',
                 slotMaxTime: '19:00:00',
                 selectable: true,
+                hiddenDays:[0], // on cache le dimanche
                 // ajout contrainte pour les jours et les heures ici dayOfWeek === 1 (lundi)  || dayOfWeek === 3 (mercredi) || dayOfWeek === 4
                 selectConstraint: {
                     selectAllow: function(selectInfo) {
@@ -53,9 +54,23 @@
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek',
                 },
+                dateClick: function(info) {
+                    window.location.href = 'rendez-vous/nouveauRdv/'+ info.dateStr;
+                }
+
 
             });
                 calendar.render();
+        });
+
+        document.getElementById('appointment_serviceId').addEventListener('change', function() {
+            var duration = this.options[this.selectedIndex].dataset.duration;
+            var start = document.getElementById('appointment_debut').value;
+            var end = new Date(start);
+        
+            end.setMinutes(end.getMinutes() + parseInt(duration));
+        
+            document.getElementById('appointment_fin').value = end.toISOString().slice(0, 16);
         });
     </script>
 {% endblock %}

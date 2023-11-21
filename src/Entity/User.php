@@ -73,6 +73,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $nombreRdv = null;
 
+    public function __toString(): string
+    {
+        return $this->getNom() . ' ' . $this->getPrenom();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

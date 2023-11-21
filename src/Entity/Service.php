@@ -28,6 +28,11 @@ class Service
     #[ORM\OneToMany(mappedBy: 'serviceId', targetEntity: Appointment::class)]
     private Collection $appointments;
 
+    public function __toString(): string
+    {
+        return $this->nom;
+    }
+
     public function __construct()
     {
         $this->appointments = new ArrayCollection();

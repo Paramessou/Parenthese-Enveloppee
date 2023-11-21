@@ -1,40 +1,101 @@
 body {
     margin: 0;
-}
-
-.calendar {
+ }
+ 
+ .calendar {
     position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 90%;
-        font-family: 'Mali-Regular', 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    
-        h1 {
-            text-align: center;
-        }
-
-        #calendar {
-            height: 621px;
-
-        }
-
-        // Gestion des boutons de la barre de navigation du calendrier
-        .fc .fc-button-primary {
-            background-color: #b78885;
-            border-color: rgb(22, 23, 92);
-            color: white;
-        }
-
-        .fc .fc-button-primary:not(:disabled).fc-button-active,
-        .fc .fc-button-primary:not(:disabled):active {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    font-family: 'Mali-Regular', 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+ 
+    h1 {
+        text-align: center;
+        margin-top: -100px;
+        margin-bottom: 100px;
+    }
+ 
+    #calendar {
+        height: 621px;
+    }
+ 
+    .fc-button-primary {
+        background-color: #b78885;
+        border-color: rgb(22, 23, 92);
+        color: white;
+ 
+        &:not(:disabled).fc-button-active,
+        &:not(:disabled):active {
             background-color: rgb(241 100 88);
             border-color: #151e27;
-            color: var(--fc-button-text-color);
+            color: white;
         }
-
-        .fc .fc-button-primary:not(:disabled).fc-button-active:focus,
-        .fc .fc-button-primary:not(:disabled):active:focus {
+ 
+        &:not(:disabled).fc-button-active:focus,
+        &:not(:disabled):active:focus {
             box-shadow: rgb(213 117 169 / 50%) 0px 0px 0px 0.2rem;
         }
+    }
+
+    .fc-today-button {
+        background-color: #f16458;
+        border-color: #151e27;
+        color: white;
+
+        &:disabled {
+            background-color: #b78885;
+            border-color: #151e27;
+            color: white;
+        }
+    }
+ }
+
+ .rdvForm {
+    position: absolute;
+    top: 54%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 271px;
+    padding: 100px;
+    padding-left: 115px;
+    padding-right: 115px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    font-family: 'Mali-Regular', 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    h1 {
+        text-align: center;
+    }
+
+    form {
+        margin-top: 20px;
+
+        input,
+        select,
+        button {
+            width: 100%;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+
+        input {
+            height: 15px;
+            border: 3px solid #af7372;
+        }
+
+        button {
+            background: linear-gradient(135deg, #af7372 0%, rgba(195, 146, 142, 1) 49%, rgba(208, 173, 171, 1) 69%, rgba(240, 226, 225, 1) 100%);
+            color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            cursor: pointer;
+
+            &:hover {
+                background: #58d58d;
+            }
+        }
+     }
 }
+ 
