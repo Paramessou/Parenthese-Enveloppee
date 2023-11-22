@@ -29,23 +29,18 @@ class AppointmentController extends AbstractController
             return $this->redirectToRoute('app_login'); // Redirige vers la page de connexion
         }
 
-        $appointment = new Appointment();
+        $appointment = new Appointment(); // Création d'un nouveau rendez-vous
+        $appointment->setDateCreationRdv(new \DateTime()); // Renseigne la date de création du rendez-vous
+        $appointment->setStatus('default'); // Renseigne le statut du rendez-vous
+        $appointment->setUserId($this->getUser()); // Renseigne l'utilisateur connecté
 
-        if ($start) {
-            $appointment->setDebut(new \DateTime($start));
+        if ($start) { // Si la date de début est renseignée
+            $appointment->setDebut(new \DateTime($start)); // Renseigne la date de début du rendez-vous
         }
 
-        $form = $this->createForm(AppointmentType::class, $appointment, [
-            'user' => $this->getUser(),
+        $form = $this->createForm(AppointmentType::class, $appointment, [ // Création du formulaire de rendez-vous
+            'user' => $this->getUser(), // Renseigne l'utilisateur connecté
         ]);
-
-        // $startDate = $request->query->get('start');
-        // $endDate = $request->query->get('end');
-
-        /*if ($startDate && $endDate) {
-            $appointment->setDebut(new \DateTime($startDate));
-            $appointment->setFin(new \DateTime($endDate));
-        }*/
 
         $form->handleRequest($request);
 
@@ -53,7 +48,7 @@ class AppointmentController extends AbstractController
             $entityManager->persist($appointment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_appointment_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('appointment_index');
         }
 
         return $this->render('appointment/rdv.html.twig', [

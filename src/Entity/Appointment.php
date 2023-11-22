@@ -66,6 +66,12 @@ class Appointment
     {
         $this->debut = $debut;
 
+        if ($this->serviceId !== null) {
+            $duration = new \DateInterval('PT' . $this->serviceId->getDuree() . 'M');
+            $debut = $this->debut instanceof \DateTime ? clone $this->debut : new \DateTime($this->debut->format(\DateTime::ATOM));
+            $this->fin = $debut->add($duration);
+        }
+
         return $this;
     }
 
@@ -146,4 +152,14 @@ class Appointment
 
         return $this;
     }
+    // public function calculateEnd(): void
+    // {
+    //     if ($this->debut !== null && $this->serviceId !== null) {
+    //         $duration = new \DateInterval('PT' . $this->serviceId->getDuree() . 'M');
+    //         $debut = $this->debut instanceof \DateTime ? clone $this->debut : new \DateTime($this->debut->format(\DateTime::ATOM));
+    //         $fin = clone $debut;
+    //         $fin->add($duration);
+    //         $this->fin = $fin;
+    //     }
+    // }
 }

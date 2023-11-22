@@ -1,9 +1,12 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/calendrier.css') }}">
+{% endblock %}
 {% block title %}Appointment index{% endblock %}
 
 {% block body %}
-    <h1>Appointment index</h1>
+    <div class="tableauRdv">
+    <h1>Tableau des rendez-vous</h1>
 
     <table class="table">
         <thead>
@@ -22,22 +25,23 @@
             <tr>
                 <td>{{ appointment.id }}</td>
                 <td>{{ appointment.dateCreationRdv ? appointment.dateCreationRdv|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ appointment.debut ? appointment.debut|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ appointment.fin ? appointment.fin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ appointment.debut ? appointment.debut|date('d-m-Y H:i:s') : '' }}</td>
+                <td>{{ appointment.fin ? appointment.fin|date('d-m-Y H:i:s') : '' }}</td>
                 <td>{{ appointment.status }}</td>
                 <td>{{ appointment.dateDeModifRdv ? appointment.dateDeModifRdv|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_appointment_show', {'id': appointment.id}) }}">show</a>
-                    <a href="{{ path('app_appointment_edit', {'id': appointment.id}) }}">edit</a>
+                    <a href="{{ path('app_appointment_show', {'id': appointment.id}) }}">voir le rendez-vous</a>
+                    <a href="{{ path('app_appointment_edit', {'id': appointment.id}) }}">modifier le rendez-vous</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">Aucun rendez-vous de trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_appointment_new') }}">Create new</a>
+    <a href="{{ path('app_appointment_new') }}">Nouveau rendez-vous</a>
+    </div>
 {% endblock %}

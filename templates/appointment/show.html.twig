@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/calendrier.css') }}">
+{% endblock %}
 {% block title %}Appointment{% endblock %}
 
 {% block body %}
@@ -13,15 +15,15 @@
             </tr>
             <tr>
                 <th>DateCreationRdv</th>
-                <td>{{ appointment.dateCreationRdv ? appointment.dateCreationRdv|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ appointment.dateCreationRdv ? appointment.dateCreationRdv|date('d-m-Y H:i:s') : '' }}</td>
             </tr>
             <tr>
                 <th>Debut</th>
-                <td>{{ appointment.debut ? appointment.debut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ appointment.debut ? appointment.debut|date('d-m-Y H:i:s') : '' }}</td>
             </tr>
             <tr>
                 <th>Fin</th>
-                <td>{{ appointment.fin ? appointment.fin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ appointment.fin ? appointment.fin|date('d-m-Y H:i:s') : '' }}</td>
             </tr>
             <tr>
                 <th>Status</th>
@@ -29,14 +31,14 @@
             </tr>
             <tr>
                 <th>DateDeModifRdv</th>
-                <td>{{ appointment.dateDeModifRdv ? appointment.dateDeModifRdv|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ appointment.dateDeModifRdv ? appointment.dateDeModifRdv|date('d-m-Y H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_appointment_index') }}">back to list</a>
+    <a href="{{ path('app_appointment_index') }}">Retour à la liste</a>
 
-    <a href="{{ path('app_appointment_edit', {'id': appointment.id}) }}">edit</a>
+    <a href="{{ path('app_appointment_edit', {'id': appointment.id}) }}">Modifier</a>
 
     {{ include('appointment/_delete_form.html.twig') }}
 {% endblock %}
