@@ -26,8 +26,6 @@ class Appointment
     #[ORM\Column(length: 20)]
     private ?string $status = null;
 
-
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateDeModifRdv = null;
 

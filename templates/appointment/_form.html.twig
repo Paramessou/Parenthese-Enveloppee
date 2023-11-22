@@ -1,4 +1,7 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_row(form.serviceId) }}
+    {{ form_row(form.debut) }}
+    {{ form_row(form.fin) }}
+    {{ form_row(form.userId) }}
     <button class="btn">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}

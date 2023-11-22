@@ -39,7 +39,7 @@ class AppointmentController extends AbstractController
             'user' => $this->getUser(),
         ]);
 
-        $startDate = $request->query->get('start');
+        // $startDate = $request->query->get('start');
         // $endDate = $request->query->get('end');
 
         /*if ($startDate && $endDate) {

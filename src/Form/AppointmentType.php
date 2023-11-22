@@ -20,11 +20,11 @@ class AppointmentType extends AbstractType
             ->add('serviceId', EntityType::class, [
                 'class' => Service::class,
                 'label' => 'Prestation',
+                'attr' => ['id' => 'appointment_serviceId'],
                 'choice_attr' => function (Service $service) {
                     return ['data-duration' => $service->getDuree()];
                 },
             ])
-            ->add('dateCreationRdv', HiddenType::class)
             ->add('debut', DateTimeType::class, [
                 'date_widget' => 'single_text',
                 'time_widget' => 'single_text',
@@ -36,14 +36,11 @@ class AppointmentType extends AbstractType
                 'label' => 'Fin',
                 'disabled' => true,
             ])
-            ->add('status', HiddenType::class)
-            ->add('dateDeModifRdv', HiddenType::class)
             ->add('userId', TextType::class, [
                 'data' => $options['user']->getNom() . ' ' . $options['user']->getPrenom(),
                 'label' => 'Nom',
                 'disabled' => true,
-            ])
-            ->add('payment', HiddenType::class);
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

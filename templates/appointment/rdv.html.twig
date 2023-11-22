@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/calendrier.css') }}">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 {% endblock %}
 
 {% block title %}Prenez rendez-vous{% endblock %}
@@ -11,6 +12,33 @@
 
     {{ include('appointment/_form.html.twig') }}
 
-    <a href="{{ path('app_appointment_index') }}">Retour à la liste</a>
+    <a href="{{ path('app_calendar') }}">Retour au calendrier</a>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            console.log('Le document a été chargé');
+            var serviceElement = $('#appointment_serviceId');
+            if (serviceElement.length) {
+                console.log('L\'élément service a été trouvé');
+                console.log('Exécution du code à l\'intérieur de la condition');
+                    serviceElement.change(function() {
+                        console.log('La valeur de service a changé');
+                        var duration = $('option:selected', this).data('duration');
+                        console.log('Durée :', duration);
+                        var start = $('#appointment_debut').val();
+                        console.log('Début :', start);
+                        var end = new Date(start);
+                
+                        end.setMinutes(end.getMinutes() + parseInt(duration));
+                        console.log('Fin :', end);
+                
+                        $('#appointment_fin').val(end.toISOString().slice(0, 16));
+                    });
+                } else {
+                    console.log('L\'élément service n\'a pas été trouvé');
+            }
+        });
+    </script>
 {% endblock %}
