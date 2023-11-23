@@ -17,14 +17,22 @@
 {% endblock %}
 {% block javascripts %}
 <script>
-    $('#appointment_serviceId, #appointment_debut').change(function() {
-        var debut = $('#appointment_debut').val();
-        var duration = $('#appointment_serviceId option:selected').data('duration');
-        if (debut && duration) {
-            var fin = new Date(debut);
-            fin.setMinutes(fin.getMinutes() + parseInt(duration));
-            $('#appointment_fin').val(fin.toISOString().slice(0, 16));
-        }
-    });
+   $(document).on('change', '#appointment_debut input', function() {
+    console.log('Lancement de la fonction change');
+    var debut = $('#appointment_debut input').val();
+    var duration = $('#appointment_serviceId option:selected').data('duration');
+    if (debut && duration) {
+        console.log('Début et durée sont définis');
+        var debutDate = new Date(debut);
+        var fin = new Date(debutDate.getFullYear(), debutDate.getMonth(), debutDate.getDate(), debutDate.getHours(), debutDate.getMinutes() + parseInt(duration));
+        var finISO = fin.toISOString().slice(0, 16);
+        $('#appointment_fin').val(finISO);
+        console.log('Fin : ' + finISO);
+    }
+});
+
+$(document).ready(function() {
+    $('#appointment_serviceId, #appointment_debut input').change();
+});
 </script>
 {% endblock %}
