@@ -22,6 +22,7 @@
                 var calendarEl = document.getElementById('calendar');
                 var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'timeGridWeek',
+                events: "{{ path('app_calendar_appointment') }}",
                 locale: 'fr',
                 timeZone: 'Europe/Paris',
                 allDaySlot: false,
@@ -55,10 +56,17 @@
                     right: 'dayGridMonth,timeGridWeek',
                 },
                 dateClick: function(info) {
-                    window.location.href = 'rendez-vous/nouveauRdv/'+ info.dateStr;
-                    console.log('dateClick a été appelé');
+                    var today = new Date(); // récupération de la date du jour
+                    today.setHours(0, 0, 0, 0); // réglage de l'heure à 00:00:00
+                    var selectedDate = new Date(info.dateStr); // récupération de la date sélectionnée
+                
+                    if (selectedDate >= today) { // Compare si la date sélectionnée est supérieure ou égale à la date du jour
+                        window.location.href = 'rendez-vous/nouveauRdv/' + info.dateStr;
+                    } else {
+                        alert("Vous ne pouvez pas sélectionner une date antérieure à la date du jour.");
+                    }
+                    //console.log('dateClick a été appelé');
                 }
-
             });
                 calendar.render();
         });

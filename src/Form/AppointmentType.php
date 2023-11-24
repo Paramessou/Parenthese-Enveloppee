@@ -7,7 +7,6 @@ use App\Entity\Service;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,9 +19,9 @@ class AppointmentType extends AbstractType
             ->add('serviceId', EntityType::class, [
                 'class' => Service::class,
                 'label' => 'Prestation',
-                'attr' => ['id' => 'appointment_serviceId'],
+                'attr' => ['id' => 'appointment_serviceId'], // Ajoute un attribut id au champ
                 'choice_attr' => function (Service $service) {
-                    return ['data-duration' => $service->getDuree()];
+                    return ['data-duration' => $service->getDuree()]; // Retourne la durée du service
                 },
             ])
             ->add('debut', DateTimeType::class, [

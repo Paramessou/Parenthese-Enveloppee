@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Appointment;
+use App\Entity\Service;
 use App\Form\AppointmentType;
 use App\Repository\AppointmentRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/rendez-vous')]
 class AppointmentController extends AbstractController
 {
-    #[Route('/', name: 'app_appointment_index', methods: ['GET'])]
+    #[Route('/show', name: 'app_appointment_index', methods: ['GET'])]
     public function index(AppointmentRepository $appointmentRepository): Response
     {
         return $this->render('appointment/index.html.twig', [
@@ -34,6 +35,11 @@ class AppointmentController extends AbstractController
         $appointment->setStatus('default'); // Renseigne le statut du rendez-vous
         $appointment->setUserId($this->getUser()); // Renseigne l'utilisateur connecté
 
+        $fin = $request->request->get('appointment_fin'); // Récupère la date de fin du rendez-vous
+        if ($fin !== null) { // Si la date de fin est renseignée
+            $appointment->setFin(new \DateTime($fin)); // Renseigne la date de fin du rendez-vous
+        }
+
         if ($start) { // Si la date de début est renseignée
             $appointment->setDebut(new \DateTime($start)); // Renseigne la date de début du rendez-vous
         }
@@ -45,10 +51,17 @@ class AppointmentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($appointment);
-            $entityManager->flush();
+            // print_r('Le formulaire est valide');
+            if ($appointment->chevaucheHeure($entityManager)) {
+                // print_r('Le formulaire est valide mais chevauche une heure');
+                $this->addFlash('error', 'Un rendez-vous existe déjà sur cette plage horaire. Sélectionnez une autre date ou heure.');
+            } else {
+                // print_r('Le formulaire est valide et ne chevauche pas d\'heure');
+                $entityManager->persist($appointment);
+                $entityManager->flush();
 
-            return $this->redirectToRoute('appointment_index');
+                return $this->redirectToRoute('app_appointment_my_appointments');
+            }
         }
 
         return $this->render('appointment/rdv.html.twig', [
@@ -71,8 +84,13 @@ class AppointmentController extends AbstractController
     #[Route('/{id}/edit', name: 'app_appointment_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Appointment $appointment, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser(); // Récupère l'utilisateur actuellement connecté
         $form = $this->createForm(AppointmentType::class, $appointment);
         $form->handleRequest($request);
+
+        if ($appointment->getUserId() !== $user) { // Si l'utilisateur connecté n'est pas le propriétaire du rendez-vous
+            throw $this->createAccessDeniedException('Vous n\'avez pas accès à cette page'); // Lève une exception
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
@@ -95,5 +113,18 @@ class AppointmentController extends AbstractController
         }
 
         return $this->redirectToRoute('app_appointment_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/mes-rendez-vous', name: 'app_appointment_my_appointments', methods: ['GET'])]
+    public function myAppointments(AppointmentRepository $appointmentRepository): Response
+    {
+        $user = $this->getUser(); // Récupère l'utilisateur actuellement connecté
+
+        // Récupère uniquement les rendez-vous de l'utilisateur connecté
+        $appointments = $appointmentRepository->findBy(['user' => $user]);
+
+        return $this->render('appointment/my_appointments.html.twig', [
+            'appointments' => $appointments,
+        ]);
     }
 }

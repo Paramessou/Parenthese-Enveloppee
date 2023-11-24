@@ -9,6 +9,11 @@
 {% block body %}
     <div class="rdvForm">
     <h1>Prenez rendez-vous</h1>
+    {% for message in app.flashes('error') %}
+			<div class="alert alert-error">
+				{{ message }}
+			</div>
+		{% endfor %}
 
     {{ include('appointment/_form.html.twig') }}
 
@@ -17,22 +22,50 @@
 {% endblock %}
 {% block javascripts %}
 <script>
-   $(document).on('change', '#appointment_debut input', function() {
-    console.log('Lancement de la fonction change');
-    var debut = $('#appointment_debut input').val();
-    var duration = $('#appointment_serviceId option:selected').data('duration');
-    if (debut && duration) {
-        console.log('Début et durée sont définis');
-        var debutDate = new Date(debut);
-        var fin = new Date(debutDate.getFullYear(), debutDate.getMonth(), debutDate.getDate(), debutDate.getHours(), debutDate.getMinutes() + parseInt(duration));
-        var finISO = fin.toISOString().slice(0, 16);
-        $('#appointment_fin').val(finISO);
-        console.log('Fin : ' + finISO);
+    function toLocalISOString(date) {
+        var tpscompense = date.getTimezoneOffset() * 60000; // décalage horaire en millisecondes
+        var localISOTime = (new Date(date - tpscompense)).toISOString().slice(0, -1); // conversion en ISO et suppression du Z final
+        return localISOTime; 
     }
-});
-
-$(document).ready(function() {
-    $('#appointment_serviceId, #appointment_debut input').change();
-});
+    
+    $(document).on('change', '#appointment_debut_date, #appointment_debut_time, #appointment_serviceId', function() {
+        //console.log('Lancement de la fonction change');
+        var debutDate = $('#appointment_debut_date').val(); // récupération de la date de début
+        var debutTime = $('#appointment_debut_time').val(); // récupération de l'heure de début
+        var duration = $('#appointment_serviceId option:selected').data('duration'); // récupération de la durée du service
+        /*console.log('Valeur de debutDate : ' + debutDate);
+        console.log('Valeur de debutTime : ' + debutTime);
+        console.log('Valeur de duration : ' + duration);*/
+        if (debutDate && debutTime && duration) { // si les 3 variables sont définies
+            //console.log('Début et durée sont définis');
+            var debut = new Date(debutDate + 'T' + debutTime); // création d'un objet date avec la date et l'heure de début
+            var fin = new Date(debut); // création d'un objet date avec la date et l'heure de début
+            fin.setMinutes(debut.getMinutes() + parseInt(duration)); // ajout de la durée au début pour obtenir la fin
+            /*console.log('Valeur de fin : ' + fin);
+            console.log('Valeur de fin.getMinutes() : ' + fin.getMinutes());
+            console.log('Valeur parseint de duration : ' + parseInt(duration));*/
+            var finISO = toLocalISOString(fin).slice(0, 16); // conversion de la date de fin en ISO
+            $('#appointment_fin_date').val(finISO.split('T')[0]); // affectation de la date de fin au champ de formulaire
+            $('#appointment_fin_time').val(finISO.split('T')[1]); // affectation de l'heure de fin au champ de formulaire
+            //console.log('Fin : ' + finISO);
+            var finInput = $('<input>').attr({
+                type: 'hidden',
+                id: 'appointment_fin',
+                name: 'appointment_fin',
+                value: finISO
+            });
+            $('form').append(finInput);
+        }
+    });
+    $(document).ready(function() {
+        //console.log('Lancement de la fonction onload');
+        var serviceId = $('#appointment_serviceId'); // récupération du champ de formulaire
+        if (serviceId.length) { // si le champ existe
+            //console.log('serviceId existe');
+            serviceId.trigger('change'); // déclenchement de l'événement change
+            //console.log('Lancement de la fonction change');
+        }
+        //console.log('Fin de la fonction onload');
+    });
 </script>
 {% endblock %}

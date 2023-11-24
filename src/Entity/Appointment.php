@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\AppointmentRepository;
+use App\Entity\Payment;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AppointmentRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AppointmentRepository::class)]
 class Appointment
@@ -18,6 +20,7 @@ class Appointment
     private ?\DateTimeInterface $dateCreationRdv = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\GreaterThanOrEqual("today", message: "La date de début ne peut pas être antérieure à la date du jour.")]
     private ?\DateTimeInterface $debut = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -65,12 +68,6 @@ class Appointment
     public function setDebut(\DateTimeInterface $debut): static
     {
         $this->debut = $debut;
-
-        if ($this->serviceId !== null) {
-            $duration = new \DateInterval('PT' . $this->serviceId->getDuree() . 'M');
-            $debut = $this->debut instanceof \DateTime ? clone $this->debut : new \DateTime($this->debut->format(\DateTime::ATOM));
-            $this->fin = $debut->add($duration);
-        }
 
         return $this;
     }
@@ -143,7 +140,7 @@ class Appointment
 
     public function setPayment(Payment $payment): static
     {
-        // set the owning side of the relation if necessary
+        // définit la propriété de relation côté propriétaire si nécessaire
         if ($payment->getAppointmentId() !== $this) {
             $payment->setAppointmentId($this);
         }
@@ -152,14 +149,24 @@ class Appointment
 
         return $this;
     }
-    // public function calculateEnd(): void
-    // {
-    //     if ($this->debut !== null && $this->serviceId !== null) {
-    //         $duration = new \DateInterval('PT' . $this->serviceId->getDuree() . 'M');
-    //         $debut = $this->debut instanceof \DateTime ? clone $this->debut : new \DateTime($this->debut->format(\DateTime::ATOM));
-    //         $fin = clone $debut;
-    //         $fin->add($duration);
-    //         $this->fin = $fin;
-    //     }
-    // }
+
+    public function chevaucheHeure($entityManager)
+    { // Vérifie si le rendez-vous est en conflit avec un autre rendez-vous
+        // print_r('Début de la méthode chevaucheHeure<br>');
+
+        $appointments = $entityManager->getRepository(Appointment::class)->findAll();
+        // print_r('Rendez-vous récupérés<br>');
+
+        foreach ($appointments as $existingAppointment) {
+            // print_r('Rendez-vous actuel : ' . $existingAppointment->getId() . '<br>');
+
+            if ($this->debut->getTimestamp() < $existingAppointment->getFin()->getTimestamp() && $this->fin->getTimestamp() > $existingAppointment->getDebut()->getTimestamp()) {
+                // print_r('Un chevauchement a été détecté<br>');
+                return true;
+            }
+        }
+
+        // print_r('Aucun chevauchement détecté<br>');
+        return false;
+    }
 }
