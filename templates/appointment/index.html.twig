@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/calendrier.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/adminpage.css') }}">
 {% endblock %}
 {% block title %}Appointment index{% endblock %}
 
@@ -12,6 +12,8 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
                 <th>DateCreationRdv</th>
                 <th>Debut</th>
                 <th>Fin</th>
@@ -24,6 +26,8 @@
         {% for appointment in appointments %}
             <tr>
                 <td>{{ appointment.id }}</td>
+                <td>{{ appointment.userId.nom }}</td>
+                <td>{{ appointment.userId.prenom }}</td>
                 <td>{{ appointment.dateCreationRdv ? appointment.dateCreationRdv|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ appointment.debut ? appointment.debut|date('d-m-Y H:i:s') : '' }}</td>
                 <td>{{ appointment.fin ? appointment.fin|date('d-m-Y H:i:s') : '' }}</td>

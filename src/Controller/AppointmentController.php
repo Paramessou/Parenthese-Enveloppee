@@ -18,9 +18,13 @@ class AppointmentController extends AbstractController
     #[Route('/show', name: 'app_appointment_index', methods: ['GET'])]
     public function index(AppointmentRepository $appointmentRepository): Response
     {
-        return $this->render('appointment/index.html.twig', [
-            'appointments' => $appointmentRepository->findAll(),
-        ]);
+        if (!$this->getUser() || !in_array('ROLE_ADMIN', $this->getUser()->getRoles())) { // Si l'utilisateur n'est pas connecté ou n'a pas le rôle ROLE_USER ou ROLE_ADMIN
+            return $this->redirectToRoute('main_accueil'); // Redirige vers la page de connexion
+        } else {
+            return $this->render('appointment/index.html.twig', [
+                'appointments' => $appointmentRepository->findAll(),
+            ]);
+        }
     }
 
     #[Route('/nouveauRdv/{start}', name: 'app_appointment_new', methods: ['GET', 'POST'])]
@@ -35,7 +39,15 @@ class AppointmentController extends AbstractController
         $appointment->setStatus('default'); // Renseigne le statut du rendez-vous
         $appointment->setUserId($this->getUser()); // Renseigne l'utilisateur connecté
 
+
+        /*  $appointmentDate = $request->request->get('appointmentDate'); // Récupère la date du rendez-vous de la requête POST
+            if ($appointmentDate) { // Si la date de début est renseignée
+                $appointment->setDebut(new \DateTime($appointmentDate)); // Renseigne la date de début du rendez-vous
+            }
+        PENSER A SUPPRIMER /{start} et $start = null DE LA ROUTE ET if($start) ligne 58-60 pour la méthode POST */
+
         $fin = $request->request->get('appointment_fin'); // Récupère la date de fin du rendez-vous
+        //print_r($fin);
         if ($fin !== null) { // Si la date de fin est renseignée
             $appointment->setFin(new \DateTime($fin)); // Renseigne la date de fin du rendez-vous
         }
@@ -51,6 +63,7 @@ class AppointmentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //print_r('Le formulaire est soumis et valide');
             // print_r('Le formulaire est valide');
             if ($appointment->chevaucheHeure($entityManager)) {
                 // print_r('Le formulaire est valide mais chevauche une heure');
@@ -73,6 +86,10 @@ class AppointmentController extends AbstractController
     #[Route('/{id}', name: 'app_appointment_show', methods: ['GET'])]
     public function show(Appointment $appointment = null): Response
     {
+        if (!$this->getUser() || !in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
+            throw $this->createAccessDeniedException('Vous n\'avez pas accès à cette page');
+        }
+
         if (!$appointment) {
             throw $this->createNotFoundException('Aucun rendez-vous trouvé avec cet ID');
         }
@@ -125,6 +142,22 @@ class AppointmentController extends AbstractController
 
         return $this->render('appointment/my_appointments.html.twig', [
             'appointments' => $appointments,
+        ]);
+    }
+
+    #[Route('/mes-rendez-vous/{id}', name: 'app_appointment_my_appointment', methods: ['GET'])]
+    public function myAppointment(Appointment $appointment = null): Response
+    {
+        // Vérifie si l'utilisateur est connecté et si le rendez-vous lui appartient
+        if (!$this->getUser() || $appointment->getUserId() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('Vous n\'avez pas accès à cette page');
+        }
+
+        if (!$appointment) {
+            throw $this->createNotFoundException('Aucun rendez-vous trouvé avec cet ID');
+        }
+        return $this->render('appointment/mon_rdv.html.twig', [
+            'appointment' => $appointment,
         ]);
     }
 }

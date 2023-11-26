@@ -28,15 +28,16 @@ class CalendarController extends AbstractController
 
         foreach ($appointments as $appointment) { // Pour chaque rendez-vous
             if ($appointment->getFin() < $now) { // Si la date de fin du rendez-vous est inférieure à la date du jour
-                $appointment->setStatus('finish'); // Renseigne le statut du rendez-vous
+                $appointment->setStatus('terminé'); // Renseigne le statut du rendez-vous
                 $em->persist($appointment); // Enregistre le rendez-vous
                 $em->flush(); // Enregistre les données en base de données
+                continue; // Passe à l'itération suivante sans afficher le rendez-vous terminé
             }
             $appointmentsArray[] = [ // Ajoute un tableau avec les données du rendez-vous
                 'id' => $appointment->getId(), // Récupère l'id du rendez-vous
                 'start' => $appointment->getDebut()->format('Y-m-d H:i:s'), // Récupère la date de début du rendez-vous
                 'end' => $appointment->getFin()->format('Y-m-d H:i:s'), // Récupère la date de fin du rendez-vous
-                'backgroundColor' => $appointment->getStatus() === 'default' ? '#58d58d' : '#af7372', // Récupère la couleur du rendez-vous
+                'backgroundColor' => $appointment->getStatus() === 'default' ? '#58d58d' : '#af7372', // Récupère la couleur du rendez-vous, vert si le rendez-vous est en attente ou en cours, rouge si le rendez-vous est terminé
             ];
         }
 

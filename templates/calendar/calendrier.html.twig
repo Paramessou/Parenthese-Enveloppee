@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/calendrier.css') }}">
+    {# <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> #}
 {% endblock %}
 {% block title %}Calendrier{% endblock %}
 
@@ -61,12 +62,35 @@
                     var selectedDate = new Date(info.dateStr); // récupération de la date sélectionnée
                 
                     if (selectedDate >= today) { // Compare si la date sélectionnée est supérieure ou égale à la date du jour
-                        window.location.href = 'rendez-vous/nouveauRdv/' + info.dateStr;
+                   
+                        window.location.href = 'rendez-vous/nouveauRdv/' + info.dateStr; // si méthode POST supprimer le paramètre info.dateStr
                     } else {
                         alert("Vous ne pouvez pas sélectionner une date antérieure à la date du jour.");
                     }
                     //console.log('dateClick a été appelé');
                 }
+                /* select: function(info) {
+                    console.log('select function called'); // Ajout d'un log pour vérifier que la fonction est appelée
+                        var today = new Date(); // récupération de la date du jour
+                        today.setHours(0, 0, 0, 0); // réglage de l'heure à 00:00:00
+                        var selectedDate = new Date(info.startStr); // récupération de la date sélectionnée
+
+                        if (selectedDate >= today) { // Compare si la date sélectionnée est supérieure ou égale à la date du jour
+                            console.log('selected date is valid'); // Ajout d'un log pour vérifier que la date sélectionnée est valide
+                            // Crée un formulaire et le soumet
+                            var form = $('<form>', {
+                                'method': 'POST',
+                                'action': 'rendez-vous/nouveauRdv'
+                            });
+                            form.append($('<input>', {
+                                'name': 'appointmentDate',
+                                'value': info.startStr,
+                                'type': 'hidden'
+                            }));
+                            form.appendTo('body').submit();
+                        } else {
+                            alert("Vous ne pouvez pas sélectionner une date antérieure à la date du jour.");
+                } */
             });
                 calendar.render();
         });

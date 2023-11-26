@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/calendrier.css') }}">
+{% endblock %}
+{% block title %}Appointment{% endblock %}
+
+{% block body %}
+    <h1>Appointment</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ appointment.id }}</td>
+            </tr>
+            <tr>
+                <th>DateCreationRdv</th>
+                <td>{{ appointment.dateCreationRdv ? appointment.dateCreationRdv|date('d-m-Y H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Debut</th>
+                <td>{{ appointment.debut ? appointment.debut|date('d-m-Y H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fin</th>
+                <td>{{ appointment.fin ? appointment.fin|date('d-m-Y H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ appointment.status }}</td>
+            </tr>
+            <tr>
+                <th>DateDeModifRdv</th>
+                <td>{{ appointment.dateDeModifRdv ? appointment.dateDeModifRdv|date('d-m-Y H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_appointment_my_appointments') }}">Retour à la liste</a>
+
+    <a href="{{ path('app_appointment_edit', {'id': appointment.id}) }}">Modifier</a>
+
+    {{ include('appointment/_delete_form.html.twig') }}
+{% endblock %}

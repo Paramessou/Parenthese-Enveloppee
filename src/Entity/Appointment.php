@@ -151,22 +151,22 @@ class Appointment
     }
 
     public function chevaucheHeure($entityManager)
-    { // Vérifie si le rendez-vous est en conflit avec un autre rendez-vous
-        // print_r('Début de la méthode chevaucheHeure<br>');
+    {
+        $repository = $entityManager->getRepository(Appointment::class); // Récupère le repository de la classe Appointment
+        $appointments = $repository->createQueryBuilder('a') // Création d'une requête sur le repository
+            ->where('a.fin > :debut')
+            ->andWhere('a.debut < :fin')
+            ->setParameter('debut', $this->debut)
+            ->setParameter('fin', $this->fin)
+            ->getQuery()
+            ->getResult();
 
-        $appointments = $entityManager->getRepository(Appointment::class)->findAll();
-        // print_r('Rendez-vous récupérés<br>');
-
-        foreach ($appointments as $existingAppointment) {
-            // print_r('Rendez-vous actuel : ' . $existingAppointment->getId() . '<br>');
-
-            if ($this->debut->getTimestamp() < $existingAppointment->getFin()->getTimestamp() && $this->fin->getTimestamp() > $existingAppointment->getDebut()->getTimestamp()) {
-                // print_r('Un chevauchement a été détecté<br>');
+        foreach ($appointments as $existingAppointment) { // Pour chaque rendez-vous
+            if ($this->debut->getTimestamp() < $existingAppointment->getFin()->getTimestamp() && $this->fin->getTimestamp() > $existingAppointment->getDebut()->getTimestamp()) { // Si la date de début du rendez-vous est inférieure à la date de fin du rendez-vous existant et que la date de fin du rendez-vous est supérieure à la date de début du rendez-vous existant
                 return true;
             }
         }
 
-        // print_r('Aucun chevauchement détecté<br>');
         return false;
     }
 }
