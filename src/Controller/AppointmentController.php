@@ -96,13 +96,7 @@ class AppointmentController extends AbstractController
     #[Route('/{id}', name: 'app_appointment_show', methods: ['GET'])]
     public function show(Appointment $appointment = null): Response
     {
-        // if (!$this->getUser() || !in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
-        //     throw $this->createAccessDeniedException('Vous n\'avez pas accès à cette page');
-        // }
 
-        // if (!$appointment) {
-        //     throw $this->createNotFoundException('Aucun rendez-vous trouvé avec cet ID');
-        // }
         return $this->render('appointment/show.html.twig', [
             'appointment' => $appointment,
         ]);
@@ -112,10 +106,12 @@ class AppointmentController extends AbstractController
     public function edit(Request $request, Appointment $appointment, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser(); // Récupère l'utilisateur actuellement connecté
-        $form = $this->createForm(AppointmentType::class, $appointment);
+        $form = $this->createForm(AppointmentType::class, $appointment, [
+            'user' => $appointment->getUserId(), // Renseigne l'utilisateur connecté
+        ]);
         $form->handleRequest($request);
 
-        if ($appointment->getUserId() !== $user) { // Si l'utilisateur connecté n'est pas le propriétaire du rendez-vous
+        if ($appointment->getUserId() !== $user && !in_array('ROLE_ADMIN', $user->getRoles())) { // Si l'utilisateur connecté n'est pas le propriétaire du rendez-vous
             throw $this->createAccessDeniedException('Vous n\'avez pas accès à cette page'); // Lève une exception
         }
 

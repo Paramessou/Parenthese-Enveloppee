@@ -36,7 +36,7 @@ class AppointmentType extends AbstractType
                 'disabled' => true,
             ])
             ->add('userId', TextType::class, [
-                'data' => $options['user']->getNom() . ' ' . $options['user']->getPrenom(), // Renseigne le nom et le prénom de l'utilisateur connecté
+                'data' => $options['user'] ? $options['user']->getNom() . ' ' . $options['user']->getPrenom() : 'Utilisateur inconnu', // Renseigne le nom et le prénom de l'utilisateur connecté
                 'label' => 'Nom',
                 'disabled' => true,
             ]);

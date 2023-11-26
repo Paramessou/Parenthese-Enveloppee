@@ -1,13 +1,18 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Edit Appointment{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/calendrier.css') }}">
+{% endblock %}
+{% block title %}Modifiez votre rendez-vous{% endblock %}
 
 {% block body %}
-    <h1>Edit Appointment</h1>
+<div class="modifRdv">
+    <h1>Modifiez votre rendez-vous</h1>
 
-    {{ include('appointment/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_appointment_index') }}">back to list</a>
+    {{ include('appointment/_form.html.twig', {'button_label': 'Mise à jour'}) }}
 
     {{ include('appointment/_delete_form.html.twig') }}
+
+    <a href="{{ path('app_appointment_index') }}">Retour à la liste</a>
+</div>
 {% endblock %}

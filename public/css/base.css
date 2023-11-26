@@ -94,7 +94,7 @@ nav a:hover {
     position: absolute;
     border-radius: 5px;
     font-family: 'Mali-Regular', 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    background: linear-gradient(180deg, transparent 6%, #d2b4b3 7%, #dbc2c0 100%);
+    background: linear-gradient(180deg, transparent 3%, #d2b4b3 4%, #dbc2c0 100%);
     text-align: left;
     min-width: 160px;
     z-index: 1;
@@ -102,7 +102,7 @@ nav a:hover {
 
 .dropdown-content a {
     color: black;
-    padding: 12px 16px;
+    padding: 12px 13px;
     text-decoration: none;
     display: block;
 }

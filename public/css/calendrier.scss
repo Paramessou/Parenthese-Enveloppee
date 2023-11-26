@@ -98,3 +98,143 @@ body {
         }
      }
 }
+
+.vueRdv {
+    position: absolute;
+    top: 54%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 271px;
+    padding: 100px;
+    padding-left: 115px;
+    padding-right: 115px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    font-family: 'Mali-Regular', 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    h1 {
+        text-align: center;
+    }
+
+    form {
+        margin-top: 20px;
+
+        input,
+        select,
+        button {
+            width: 100%;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+
+        input {
+            height: 15px;
+            border: 3px solid #af7372;
+        }
+
+        button {
+            background: linear-gradient(135deg, #af7372 0%, rgba(195, 146, 142, 1) 49%, rgba(208, 173, 171, 1) 69%, rgba(240, 226, 225, 1) 100%);
+            color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            cursor: pointer;
+
+            &:hover {
+                background: #58d58d;
+            }
+        }
+     }
+
+}
+
+.modifRdv {
+    position: absolute;
+    top: 54%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 271px;
+    padding: 100px;
+    padding-left: 115px;
+    padding-right: 115px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    font-family: 'Mali-Regular', 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    h1 {
+        text-align: center;
+    }
+
+    form {
+        margin-top: 20px;
+
+        input,
+        select,
+        button {
+            width: 100%;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+
+        input {
+            height: 15px;
+            border: 3px solid #af7372;
+        }
+
+        button {
+            background: linear-gradient(135deg, #af7372 0%, rgba(195, 146, 142, 1) 49%, rgba(208, 173, 171, 1) 69%, rgba(240, 226, 225, 1) 100%);
+            color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            cursor: pointer;
+
+            &:hover {
+                background: #58d58d;
+            }
+        }
+     }
+}
+
+.tableauRdv {
+    margin: 180px auto;
+    width: 90%;
+    padding: 40px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    font-family: 'Mali-Regular', 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tbody {
+            display: block; // Permettre le défilement
+            height: 700px; // Hauteur du tableau (ajustez selon vos besoins)
+            overflow-y: auto; // Ajouter un défilement vertical
+        }
+
+        thead, tbody tr {
+            display: table; // Assurer une largeur correcte des lignes
+            width: 100%;
+            table-layout: fixed; // Assurer une largeur correcte des cellules
+        }
+    }
+}
