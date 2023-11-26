@@ -25,7 +25,7 @@
                 <td>{{ appointment.fin|date('d-m-Y H:i') }}</td>
                 <td>{{ appointment.status}}</td>
                 <td>
-                    <a href="{{ path('app_appointment_my_appointments', {'id': appointment.id}) }}">voir le rendez-vous</a>
+                    <a href="{{ path('app_appointment_index', {'id': appointment.id}) }}">voir le rendez-vous</a>
                     <a href="{{ path('app_appointment_edit', {'id': appointment.id}) }}">modifier le rendez-vous</a>
                 </td>
             </tr>

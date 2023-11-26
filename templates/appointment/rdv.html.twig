@@ -32,7 +32,20 @@
         //console.log('Lancement de la fonction change');
         var debutDate = $('#appointment_debut_date').val(); // récupération de la date de début
         var debutTime = $('#appointment_debut_time').val(); // récupération de l'heure de début
-        var duration = $('#appointment_serviceId option:selected').data('duration'); // récupération de la durée du service
+        var duration = $('#appointment_serviceId option:selected').data('duration'); // récupération de la duréedu service
+        var dateJour = new Date(debutDate); // vérification du jour saisie
+        var numeroJourSemaine = dateJour.getDay(); // récupération du numéro du jour de la semaine
+        if (numeroJourSemaine == 0) { // si le jour est un dimanche
+            alert('Le dimanche est fermé'); // affichage d'un message d'erreur
+            $('#appointment_debut_date').val('');
+            $('#appointment_debut_time').val('');
+        }
+        
+        if (debutTime.split(':')[0] < 9 || debutTime.split(':')[0] >= 19) { // si l'heure est inférieure à 9h ou supérieure ou égale à 19h
+            alert('L\'heure séléctionnée doit être comprise entre 9h et 18h'); // affichage d'un message d'erreur
+            $('#appointment_debut_date').val('');
+            $('#appointment_debut_time').val('');
+        }
         /*console.log('Valeur de debutDate : ' + debutDate);
         console.log('Valeur de debutTime : ' + debutTime);
         console.log('Valeur de duration : ' + duration);*/

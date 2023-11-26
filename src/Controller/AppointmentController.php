@@ -18,12 +18,22 @@ class AppointmentController extends AbstractController
     #[Route('/show', name: 'app_appointment_index', methods: ['GET'])]
     public function index(AppointmentRepository $appointmentRepository): Response
     {
-        if (!$this->getUser() || !in_array('ROLE_ADMIN', $this->getUser()->getRoles())) { // Si l'utilisateur n'est pas connecté ou n'a pas le rôle ROLE_USER ou ROLE_ADMIN
-            return $this->redirectToRoute('main_accueil'); // Redirige vers la page de connexion
-        } else {
+        if ($this->getUser() && !in_array('ROLE_ADMIN', $this->getUser()->getRoles())) { // Si l'utilisateur n'est pas connecté ou n'a pas le rôle ROLE_USER ou ROLE_ADMIN
+            $user = $this->getUser(); // Récupère l'utilisateur actuellement connecté
+
+            // Récupère uniquement les rendez-vous de l'utilisateur connecté
+            $appointments = $appointmentRepository->findBy(['userId' => $user]);
+
+            return $this->render('appointment/mes_rdvs.html.twig', [
+                'appointments' => $appointments,
+            ]); // Redirige vers la page de connexion
+        } else if ($this->getUser() && in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
+
             return $this->render('appointment/index.html.twig', [
                 'appointments' => $appointmentRepository->findAll(),
             ]);
+        } else {
+            return $this->redirectToRoute('app_login');
         }
     }
 
@@ -73,7 +83,7 @@ class AppointmentController extends AbstractController
                 $entityManager->persist($appointment);
                 $entityManager->flush();
 
-                return $this->redirectToRoute('app_appointment_my_appointments');
+                return $this->redirectToRoute('app_appointment_index');
             }
         }
 
@@ -86,13 +96,13 @@ class AppointmentController extends AbstractController
     #[Route('/{id}', name: 'app_appointment_show', methods: ['GET'])]
     public function show(Appointment $appointment = null): Response
     {
-        if (!$this->getUser() || !in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
-            throw $this->createAccessDeniedException('Vous n\'avez pas accès à cette page');
-        }
+        // if (!$this->getUser() || !in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
+        //     throw $this->createAccessDeniedException('Vous n\'avez pas accès à cette page');
+        // }
 
-        if (!$appointment) {
-            throw $this->createNotFoundException('Aucun rendez-vous trouvé avec cet ID');
-        }
+        // if (!$appointment) {
+        //     throw $this->createNotFoundException('Aucun rendez-vous trouvé avec cet ID');
+        // }
         return $this->render('appointment/show.html.twig', [
             'appointment' => $appointment,
         ]);
@@ -130,34 +140,5 @@ class AppointmentController extends AbstractController
         }
 
         return $this->redirectToRoute('app_appointment_index', [], Response::HTTP_SEE_OTHER);
-    }
-
-    #[Route('/mes-rendez-vous', name: 'app_appointment_my_appointments', methods: ['GET'])]
-    public function myAppointments(AppointmentRepository $appointmentRepository): Response
-    {
-        $user = $this->getUser(); // Récupère l'utilisateur actuellement connecté
-
-        // Récupère uniquement les rendez-vous de l'utilisateur connecté
-        $appointments = $appointmentRepository->findBy(['user' => $user]);
-
-        return $this->render('appointment/my_appointments.html.twig', [
-            'appointments' => $appointments,
-        ]);
-    }
-
-    #[Route('/mes-rendez-vous/{id}', name: 'app_appointment_my_appointment', methods: ['GET'])]
-    public function myAppointment(Appointment $appointment = null): Response
-    {
-        // Vérifie si l'utilisateur est connecté et si le rendez-vous lui appartient
-        if (!$this->getUser() || $appointment->getUserId() !== $this->getUser()) {
-            throw $this->createAccessDeniedException('Vous n\'avez pas accès à cette page');
-        }
-
-        if (!$appointment) {
-            throw $this->createNotFoundException('Aucun rendez-vous trouvé avec cet ID');
-        }
-        return $this->render('appointment/mon_rdv.html.twig', [
-            'appointment' => $appointment,
-        ]);
     }
 }
