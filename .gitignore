@@ -20,3 +20,4 @@
 /phpunit.xml
 
 composer.lock
+.env.test
