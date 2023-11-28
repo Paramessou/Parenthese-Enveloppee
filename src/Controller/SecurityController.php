@@ -7,10 +7,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 
 class SecurityController extends AbstractController
 {
-    private $rateLimiter;
+    private $rateLimiter; // Injecte le service RateLimiterService
+
 
     public function __construct(RateLimiterService $rateLimiter)
     {
@@ -20,33 +22,44 @@ class SecurityController extends AbstractController
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // Récupère le dernier nom d'utilisateur saisi par l'utilisateur
         $lastUsername = $authenticationUtils->getLastUsername();
         $cacheKey = md5($lastUsername);
-        // print_r($cacheKey);
+        $now = new \DateTime();
 
-        // Récupère l'erreur de connexion s'il y en a une
+        if ($cacheKey && $this->rateLimiter->hasExceededMaxAttempts($cacheKey)) {
+            $lastAttemptTime = $this->rateLimiter->getLastAttemptTime($cacheKey);
+            if ($lastAttemptTime !== null && $now->getTimestamp() - $lastAttemptTime->getTimestamp() >= RateLimiterService::BLOCK_TIME) {
+                $errorMessage = 'Vous avez dépassé le nombre maximum de tentatives de connexion. Veuillez réessayer dans ' . RateLimiterService::BLOCK_TIME . ' secondes.';
+                $error = new CustomUserMessageAuthenticationException($errorMessage);
+                return $this->render('security/login.html.twig', [
+                    'last_username' => $lastUsername,
+                    'error' => $error,
+                    'block_time' => RateLimiterService::BLOCK_TIME
+                ]);
+            }
+        }
+
         $error = $authenticationUtils->getLastAuthenticationError();
 
-        // Si une erreur de connexion s'est produite, augmente le nombre de tentatives de connexion
         if ($cacheKey && $error !== null) {
-            // print_r($cacheKey);
             $this->rateLimiter->incrementAttempts($cacheKey);
         }
 
-        // Controle si l'utilisateur a dépassé le nombre maximum de tentatives de connexion
         if ($cacheKey && $this->rateLimiter->hasExceededMaxAttempts($cacheKey)) {
-            // print_r($cacheKey);
-            // var_dump('trop de tentatives de connexion');
-            return $this->render('security/login.html.twig', [
-                'last_username' => $lastUsername,
-                'error' => 'Vous avez dépassé le nombre maximum de tentatives de connexion.',
-            ]);
+            $errorMessage = 'Vous avez dépassé le nombre maximum de tentatives de connexion.';
+            $error = new CustomUserMessageAuthenticationException($errorMessage);
+            throw $error;
         }
 
-        $this->rateLimiter->resetAttempts($cacheKey);
+        if ($cacheKey && $error === null) {
+            $this->rateLimiter->resetAttempts($cacheKey);
+        }
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('security/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error,
+            'block_time' => RateLimiterService::BLOCK_TIME
+        ]);
     }
     // #[Route(path: '/login', name: 'app_login')]
     // public function login(AuthenticationUtils $authenticationUtils): Response
