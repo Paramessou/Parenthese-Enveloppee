@@ -17,6 +17,9 @@ security:
             lazy: true
             provider: app_user_provider
             custom_authenticator: App\Security\LoginFormAuthenticator
+            login_throttling:
+                max_attempts: 5 # Le nombre maximum de tentatives de connexion
+                interval: '1 minute' # Le temps en secondes pendant lequel l'utilisateur est bloqué après avoir atteint le nombre maximum de tentatives de connexion
             logout:
                 path: app_logout
                 target: main_accueil
