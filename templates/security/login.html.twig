@@ -11,7 +11,11 @@
 <div class="loginFields">
     <form method="post">
         {% if error %}
-            <div class="alert alert-danger">Email ou Mot de passe invalide</div>
+            {% if error == 'Vous avez dépassé le nombre maximum de tentatives de connexion.' %}
+                <div class="alert alert-danger">{{ error }}</div>
+            {% else %}
+                <div class="alert alert-danger">Email ou Mot de passe invalide</div>
+    {% endif %}
         {% endif %}
         {% if app.user %}
             <div class="mb-3">
