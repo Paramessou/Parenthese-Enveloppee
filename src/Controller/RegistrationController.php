@@ -30,22 +30,22 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginFormAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
-        $user = new User();
-        $user->setRoles(['ROLE_USER']);
-        $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
+        $user = new User(); // Crée une nouvelle instance de User
+        $user->setRoles(['ROLE_USER']); // Définit le rôle de l'utilisateur
+        $form = $this->createForm(RegistrationFormType::class, $user); // Crée un formulaire d'inscription
+        $form->handleRequest($request); // Gère la requête
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) { // Si le formulaire est soumis et valide
             // Chiffre le mot de passe
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
+            $user->setPassword( // Définit le mot de passe de l'utilisateur
+                $userPasswordHasher->hashPassword( // Chiffre le mot de passe
                     $user,
-                    $form->get('plainPassword')->getData()
+                    $form->get('plainPassword')->getData() // Mot de passe en clair
                 )
             );
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $entityManager->persist($user); // Persiste l'utilisateur
+            $entityManager->flush(); // Enregistre l'utilisateur
 
             // Génère un url et un email d'enregistrement pour l'utilisateur
             $this->emailVerifier->sendEmailConfirmation(
@@ -59,14 +59,14 @@ class RegistrationController extends AbstractController
             );
             // do anything else you need here, like send an email
 
-            return $userAuthenticator->authenticateUser(
+            return $userAuthenticator->authenticateUser( // Authentifie l'utilisateur
                 $user,
                 $authenticator,
                 $request
             );
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('registration/register.html.twig', [ // Affiche le formulaire d'inscription
             'registrationForm' => $form->createView(),
         ]);
     }
