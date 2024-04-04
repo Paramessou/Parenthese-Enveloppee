@@ -1,0 +1,10 @@
+{% extends '@!CHCookieConsent/cookie_consent.html.twig' %}
+
+{% block cookie_consent %}
+    <div class="cookie-consent">
+        <p>En poursuivant votre navigation, vous acceptez l'utilisation de services tiers pouvant installer des cookies </p>
+        <button type="button" class="accept">Accepter</button>
+        <button type="button" class="refuse">Refuser</button>
+        <a href="{{ path('page_des_consentements') }}">En savoir plus</a>
+    </div>
+{% endblock %}

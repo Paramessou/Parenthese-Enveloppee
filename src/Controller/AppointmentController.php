@@ -49,13 +49,6 @@ class AppointmentController extends AbstractController
         $appointment->setStatus('default'); // Renseigne le statut du rendez-vous
         $appointment->setUserId($this->getUser()); // Renseigne l'utilisateur connecté
 
-
-        /*  $appointmentDate = $request->request->get('appointmentDate'); // Récupère la date du rendez-vous de la requête POST
-            if ($appointmentDate) { // Si la date de début est renseignée
-                $appointment->setDebut(new \DateTime($appointmentDate)); // Renseigne la date de début du rendez-vous
-            }
-        PENSER A SUPPRIMER /{start} et $start = null DE LA ROUTE ET if($start) ligne 58-60 pour la méthode POST */
-
         $fin = $request->request->get('appointment_fin'); // Récupère la date de fin du rendez-vous
         //print_r($fin);
         if ($fin !== null) { // Si la date de fin est renseignée
@@ -75,6 +68,10 @@ class AppointmentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             //print_r('Le formulaire est soumis et valide');
             // print_r('Le formulaire est valide');
+            $service = $form->get('serviceId')->getData();
+            $appointment->setPrix($service->getPrix()); // Renseigne le prix du rendez-vous
+            $appointment->setDuree($service->getDuree()); // Renseigne la durée du rendez-vous
+
             if ($appointment->chevaucheHeure($entityManager)) {
                 // print_r('Le formulaire est valide mais chevauche une heure');
                 $this->addFlash('error', 'Un rendez-vous existe déjà sur cette plage horaire. Sélectionnez une autre date ou heure.');

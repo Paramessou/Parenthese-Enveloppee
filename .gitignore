@@ -21,3 +21,7 @@
 
 composer.lock
 .env.test
+
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###

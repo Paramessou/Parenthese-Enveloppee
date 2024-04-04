@@ -24,4 +24,10 @@ class MainController extends AbstractController
     {
         return $this->render('main/contact.html.twig');
     }
+
+    #[Route('/consentement-cookies', name: 'main_consent_cookies')]
+    public function consentementCookies()
+    {
+        return $this->render('main/consentement_cookies.html.twig');
+    }
 }

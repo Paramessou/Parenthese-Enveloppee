@@ -18,8 +18,10 @@
                 <th>Debut</th>
                 <th>Fin</th>
                 <th>Status</th>
+                <th>Prix</th>
+                <th>Durée</th>
                 <th>DateDeModifRdv</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -32,6 +34,8 @@
                 <td>{{ appointment.debut ? appointment.debut|date('d-m-Y H:i:s') : '' }}</td>
                 <td>{{ appointment.fin ? appointment.fin|date('d-m-Y H:i:s') : '' }}</td>
                 <td>{{ appointment.status }}</td>
+                <td>{{ appointment.prix }} €</td>
+                <td>{{ appointment.duree }} min</td>
                 <td>{{ appointment.dateDeModifRdv ? appointment.dateDeModifRdv|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('app_appointment_show', {'id': appointment.id}) }}">voir le rendez-vous</a>

@@ -43,6 +43,12 @@ class Appointment
     #[ORM\OneToOne(mappedBy: 'appointmentId', cascade: ['persist', 'remove'])]
     private ?Payment $payment = null;
 
+    #[ORM\Column(type: Types::DECIMAL, precision: 5, scale: 2)]
+    private ?string $prix = null;
+
+    #[ORM\Column]
+    private ?int $duree = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -168,5 +174,29 @@ class Appointment
         }
 
         return false;
+    }
+
+    public function getPrix(): ?string
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(string $prix): static
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getDuree(): ?int
+    {
+        return $this->duree;
+    }
+
+    public function setDuree(int $duree): static
+    {
+        $this->duree = $duree;
+
+        return $this;
     }
 }

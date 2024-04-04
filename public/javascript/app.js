@@ -279,36 +279,3 @@ if (typeof window.waitForImages === 'undefined') {
 };   
 
 waitForImages();
-
-//-------------------- Gestion Menus Déroulants --------------------
-document.addEventListener('DOMContentLoaded', function () {
-    // Menu déroulant pour pages utilisateurs et page connexion
-    function toggleDropdown(event) {
-        event.stopPropagation();
-
-        var dropdownButton = event.target.closest('.dropdown-button');
-        if (dropdownButton) {
-            // Pour le menu de connexion ou le menu utilisateur connecté
-            dropdownButton.nextElementSibling.classList.toggle("show");
-        } else {
-            // Ferme tous les menus s'ils sont ouverts
-            var dropdowns = document.querySelectorAll(".dropdown-content");
-            dropdowns.forEach(function (dropdown) {
-                if (dropdown.classList.contains('show')) {
-                    dropdown.classList.remove('show');
-                }
-            });
-        }
-    }
-
-    // Gérez le clic sur les liens à l'intérieur des menus pour éviter la fermeture immédiate
-    document.querySelectorAll('.dropdown-content a').forEach(function (link) {
-        link.addEventListener('click', function (event) {
-            event.stopPropagation();
-        });
-    });
-
-    document.querySelectorAll('.dropdown-button').forEach(function (button) {
-        button.addEventListener('click', toggleDropdown);
-    });
-});

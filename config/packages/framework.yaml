@@ -3,6 +3,10 @@ framework:
     secret: '%env(APP_SECRET)%'
     #csrf_protection: true
     http_method_override: true
+    handle_all_throwables: true
+    esi: true # Active le support de l'ESI qui est une fonctionnalité de Symfony permettant de mettre en cache des fragments de pages
+    # annotations:
+    #     enabled: false à utiliser avec les annotations pour éviter les conflits avec les routes définies dans les fichiers yaml de config lors de la mise à jour vers symfony 6.4 ou utlérieur
 
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
     # Remove or comment this section to explicitly disable session support.

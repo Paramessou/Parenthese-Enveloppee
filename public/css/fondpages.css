@@ -1,173 +1,51 @@
-* {
-  box-sizing: border-box;
-  margin: auto;
-}
-
 body {
-  position: relative;
   margin: 0;
-  height: 100vh;
-  background-image: url(../img/portage-six-fours-les-plages-3.jpg);
-  background-size: cover;
-  background-position: center;
-  background-attachment: scroll;
-  perspective: 1000px;
 }
 
-div.gestion__bg {
-  position: absolute;
-  width: 70vw;
-  height: 60vh;
-  inset: 0;
-  margin: auto;
-  border-radius: 40px;
-  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.15), 0 -10px 20px -5px rgba(0, 0, 0, 0.3) inset, 1px 2px 1px rgba(255, 255, 255, 0.5) inset, 0 150px 100px -80px rgba(0, 0, 0, 0.4);
-  animation: reveal 2s linear;
-  transform: translateY(0px) rotateY(0deg) scale(1);
-  transition: all 0.3s ease;
-}
-div.gestion__bg:hover {
-  transform: translateY(0px) rotateY(-20deg) scale(1);
+.presentation__container {
+  position: relative;
+  justify-content: space-between;
+  padding: 2em;
+  background-color: #cebbbb;
+  margin-top: 120px;
+  height: calc(100vh - 240px);
 }
 
-span.gestion__bg {
-  display: block;
+.presentation__image {
   position: absolute;
-  z-index: 1;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 40px;
-  -webkit-backdrop-filter: blur(128px) brightness(105%);
-  backdrop-filter: blur(128px) brightness(105%);
-  -webkit-mask-image: linear-gradient(to right, black -7.5%, transparent 32.5%);
-  mask-image: linear-gradient(to right, black -7.5%, transparent 32.5%);
+  top: 125px;
+  left: 2em;
+  width: 40%;
+  margin-right: 2em;
+  background-color: #fff;
+  border: 1px solid #cfaba9;
+  padding: 1em;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
 }
-span.span1 {
-  display: block;
-  position: absolute;
-  z-index: 1;
-  inset: 0;
+.presentation__image img {
   width: 100%;
-  height: 100%;
-  border-radius: 40px;
-  -webkit-backdrop-filter: blur(128px) brightness(105%);
-  backdrop-filter: blur(128px) brightness(105%);
-  -webkit-mask-image: linear-gradient(to right, black -7.5%, transparent 32.5%);
-  mask-image: linear-gradient(to right, black -7.5%, transparent 32.5%);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
-span.span2 {
-  display: block;
+
+.presentation__text {
   position: absolute;
-  z-index: 1;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 40px;
-  -webkit-backdrop-filter: blur(64px) brightness(105%);
-  backdrop-filter: blur(64px) brightness(105%);
-  -webkit-mask-image: linear-gradient(to right, black 5%, transparent 45%);
-  mask-image: linear-gradient(to right, black 5%, transparent 45%);
-}
-span.span3 {
-  display: block;
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 40px;
-  -webkit-backdrop-filter: blur(32px) brightness(105%);
-  backdrop-filter: blur(32px) brightness(105%);
-  -webkit-mask-image: linear-gradient(to right, black 17.5%, transparent 57.5%);
-  mask-image: linear-gradient(to right, black 17.5%, transparent 57.5%);
-}
-span.span4 {
-  display: block;
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 40px;
-  -webkit-backdrop-filter: blur(16px) brightness(105%);
-  backdrop-filter: blur(16px) brightness(105%);
-  -webkit-mask-image: linear-gradient(to right, black 30%, transparent 70%);
-  mask-image: linear-gradient(to right, black 30%, transparent 70%);
-}
-span.span5 {
-  display: block;
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 40px;
-  -webkit-backdrop-filter: blur(8px) brightness(105%);
-  backdrop-filter: blur(8px) brightness(105%);
-  -webkit-mask-image: linear-gradient(to right, black 42.5%, transparent 82.5%);
-  mask-image: linear-gradient(to right, black 42.5%, transparent 82.5%);
-}
-span.span6 {
-  display: block;
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 40px;
-  -webkit-backdrop-filter: blur(4px) brightness(105%);
-  backdrop-filter: blur(4px) brightness(105%);
-  -webkit-mask-image: linear-gradient(to right, black 55%, transparent 95%);
-  mask-image: linear-gradient(to right, black 55%, transparent 95%);
-}
-span.span7 {
-  display: block;
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 40px;
-  -webkit-backdrop-filter: blur(2px) brightness(105%);
-  backdrop-filter: blur(2px) brightness(105%);
-  -webkit-mask-image: linear-gradient(to right, black 67.5%, transparent 107.5%);
-  mask-image: linear-gradient(to right, black 67.5%, transparent 107.5%);
-}
-span.span8 {
-  display: block;
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 40px;
-  -webkit-backdrop-filter: blur(2px) brightness(105%);
-  backdrop-filter: blur(2px) brightness(105%);
-  -webkit-mask-image: linear-gradient(to right, black 100%, transparent 140%);
-  mask-image: linear-gradient(to right, black 100%, transparent 140%);
-}
-span .txt__pages {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  padding: 30px;
-  font-size: 15px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  top: 120px;
+  left: 45%;
+  width: 50%;
+  color: #5b0505;
   text-align: justify;
+  font-size: 14px;
+  line-height: 1.55;
+  font-family: "Mali-Regular", "Montserrat", "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
 }
 
-@keyframes reveal {
-  from {
-    transform: translateY(50px) rotateX(30deg) scale(0.9);
+@media screen and (min-width: 2560px) {
+  .presentation__image {
+    width: 35%;
   }
-  to {
-    transform: translateY(0px) rotateY(20deg) scale(1);
+  .presentation__text {
+    left: 40%;
+    width: 55%;
+    font-size: 19.9px;
   }
 }/*# sourceMappingURL=fondpages.css.map */

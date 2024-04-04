@@ -161,5 +161,16 @@
         }
         //console.log('Fin de la fonction onload');
     });
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var serviceSelect = document.getElementById('appointment_service');
+            var priceInput = document.getElementById('appointment_prix');
+    
+            serviceSelect.addEventListener('change', function() {
+                var selectedOption = this.options[this.selectedIndex];
+                var price = selectedOption.getAttribute('data-price');
+                priceInput.value = price;
+            });
+        });
 </script>
 {% endblock %}

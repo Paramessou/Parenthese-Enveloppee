@@ -16,6 +16,10 @@
     width: auto;
     z-index: 2;
 }
+.logo-header:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.5);
+}
 
 header.mainHeader {
     background: linear-gradient(135deg, #af7372 0%, rgba(195, 146, 142, 1) 49%, #d0adab 69%, #f0e2e1 100%);
@@ -24,6 +28,7 @@ header.mainHeader {
     top: 0;
     height: 120px;
     z-index: 1;
+    border-bottom: 3px solid #fff;
 }
 
 header.mainHeader::after {
@@ -43,7 +48,7 @@ header.mainHeader::after {
 
 .navHeader {
     position: relative;
-    top: 70px;
+    top: 65px;
 }
 
 nav ul {
@@ -59,20 +64,34 @@ nav li {
     font-family: 'Mali-Regular', 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-nav a {
+nav a:not(.dropdown a) {
     display: block;
     padding: 10px;
     text-decoration: none;
     color: #000;
+    border: 1px solid white;
+    box-shadow: 10px 6px 15px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+nav a:not(.dropdown a):hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    color: #fff;
 }
 
 .menuPresentation {
     margin: 0px;
 }
 
-nav a:hover {
-    color: #fff;
+@media screen and (min-width: 2560px) {
+    nav li {
+        margin-left: 100px;
+        font-size: 18px;
+    }
 }
+
 /*------------------------------------------------------------------------------- Menus Déroulants -----------------------------------------------------------------*/
 
 .dropdown {
@@ -82,21 +101,38 @@ nav a:hover {
 
 .dropdown-button {
     background: transparent;
-    padding: 12px 16px;
+    padding: 10px 16px;
+    margin-left: 30px;
     border: none;
     cursor: pointer;
     font-size: 15px;
     font-family: 'Mali-Regular', 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    border: 1px solid white;
+    box-shadow: 10px 6px 15px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    margin-bottom: 13px;
+}
+
+.dropdown-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.5);
 }
 
 .dropdown-content {
     display: none;
     position: absolute;
-    border-radius: 5px;
+    /* border: 1px solid #fff;
+    border-radius: 5px; */
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom: 3px solid #fff;
+    border-left: 3px solid #fff;
+    border-right: 3px solid #fff;
+    margin-left: 30px;
     font-family: 'Mali-Regular', 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    background: linear-gradient(180deg, transparent 4%, #d2b4b3 3%, #dbc2c0 100%);
+    background: linear-gradient(180deg, transparent 0%, #d2b4b3 0%, #dbc2c0 100%);
     text-align: left;
-    min-width: 165px;
+    min-width: 132px;
     z-index: 1;
 }
 
@@ -107,19 +143,45 @@ nav a:hover {
     display: block;
 }
 
+.dropdown-content::before { /* gestion ombre interne sur bordure haute quand menu ouvert */
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    box-shadow: inset 0px 3px 4px rgba(0, 0, 0, 0.1);
+}
+
 .dropdown-content a:hover {
     background-color: none;
     color: white
 }
 
-.dropdown:hover .dropdown-content {
+/* .dropdown:hover .dropdown-content {
     display: block;
-}
+} */
 
 .dropdown:hover .dropdown-button {
     color: white;
 }
 
+.dropdown-button:focus {
+    border: 1px solid white;
+}
+
+@media screen and (min-width: 2560px) {
+    .dropdown-button {
+        margin-left: 100px;
+        font-size: 18px;
+        margin-bottom: 9.5px;
+    }
+    .dropdown-content {
+        margin-left: 100px;
+        min-width: 145px;
+    }
+    
+}
 /*------------------------------------------------------------------------------- Burger Menu -----------------------------------------------------------------*/
 @media only screen and (max-width: 800px) {
 
@@ -136,4 +198,5 @@ footer {
     bottom: 0;
     text-align: center;
     font-family: 'Mali-Regular', 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    border-top: 3px solid #fff;
 }

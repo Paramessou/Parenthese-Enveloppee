@@ -189,7 +189,8 @@ body {
   width: 100%;
   border-collapse: collapse;
 }
-.tableauRdv table th, .tableauRdv table td {
+.tableauRdv table th,
+.tableauRdv table td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
@@ -202,7 +203,8 @@ body {
   height: 700px;
   overflow-y: auto;
 }
-.tableauRdv table thead, .tableauRdv table tbody tr {
+.tableauRdv table thead,
+.tableauRdv table tbody tr {
   display: table;
   width: 100%;
   table-layout: fixed;

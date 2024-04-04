@@ -1,7 +1,26 @@
 {{ form_start(form) }}
     {{ form_row(form.serviceId) }}
+    {{ form_row(form.prix) }}
     {{ form_row(form.debut) }}
     {{ form_row(form.fin) }}
     {{ form_row(form.userId) }}
     <button class="btn">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}
+
+{% block javascripts %}
+<script>
+    // Fonction pour mettre à jour le champ de prix
+    function updatePrice() {
+        var selectElement = document.getElementById('appointment_serviceId');
+        var selectedOption = selectElement.options[selectElement.selectedIndex];
+        var price = selectedOption.getAttribute('data-price');
+        document.getElementById('appointment_prix').value = price + '€'; // Met à jour le champ de prix
+    }
+
+    // Met à jour le prix dès que la page est chargée
+    window.onload = updatePrice;
+
+    // Met à jour le prix lorsque le service est sélectionné
+    document.getElementById('appointment_serviceId').addEventListener('change', updatePrice);
+</script>
+{% endblock %}

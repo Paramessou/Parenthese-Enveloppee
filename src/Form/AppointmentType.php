@@ -21,9 +21,16 @@ class AppointmentType extends AbstractType
                 'label' => 'Prestation',
                 'attr' => ['id' => 'appointment_serviceId'], // Ajoute un attribut id au champ
                 'choice_attr' => function (Service $service) {
-                    return ['data-duration' => $service->getDuree()]; // Retourne la durée du service
+                    return ['data-duration' => $service->getDuree(), 'data-price' => $service->getPrix()]; // Retourne la durée du service
                 },
             ])
+
+            ->add('prix', TextType::class, [
+                'label' => 'Tarif',
+                'disabled' => true,
+                'mapped' => false,
+            ])
+
             ->add('debut', DateTimeType::class, [
                 'date_widget' => 'single_text',
                 'time_widget' => 'single_text',
@@ -47,6 +54,7 @@ class AppointmentType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Appointment::class,
             'user' => null,
+            'service' => null,
         ]);
     }
 }
