@@ -1,4 +1,4 @@
-// Gestion des cartes sur écran d'acceuil
+// Gestion des cartes sur écran d'accueil
 if (typeof window.gsap === 'undefined') {
     window.gsap = require('gsap');
 }
@@ -25,18 +25,44 @@ if (typeof window.cardInfosContainerEl === 'undefined') {
     window.cardInfosContainerEl = document.querySelector(".info__wrapper");
 }
 
-buttons.next.addEventListener("click", () => swapCards("right"));
+// Fonction de temporisation pour éviter les appels répétitifs rapides
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
 
-buttons.prev.addEventListener("click", () => swapCards("left"));
+let isAnimating = false;
 
-document.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowLeft" || event.key === "Left") {
-        buttons.prev.click();
-    } else if (event.key === "ArrowRight" || event.key === "Right") {
-        buttons.next.click();
+// Ajout des événements de clic pour les boutons "prev" et "next"
+buttons.next.addEventListener("click", () => {
+    if (!isAnimating) {
+        swapCards("right");
     }
 });
 
+buttons.prev.addEventListener("click", () => {
+    if (!isAnimating) {
+        swapCards("left");
+    }
+});
+
+// Ajout de l'événement clavier avec la fonction debounce
+document.addEventListener("keydown", debounce((event) => {
+    if (!isAnimating) {
+        if (event.key === "ArrowLeft" || event.key === "Left") {
+            buttons.prev.click();
+        } else if (event.key === "ArrowRight" || event.key === "Right") {
+            buttons.next.click();
+        }
+    }
+}, 250));
 
 function swapCards(direction) {
     const currentCardEl = cardsContainerEl.querySelector(".current--card");
@@ -53,6 +79,8 @@ function swapCards(direction) {
     removeCardEvents(currentCardEl);
 
     function swapCardsClass() {
+        isAnimating = true; // Empêcher les animations multiples
+
         currentCardEl.classList.remove("current--card");
         previousCardEl.classList.remove("previous--card");
         nextCardEl.classList.remove("next--card");
@@ -92,6 +120,9 @@ function swapCards(direction) {
             nextBgImageEl.classList.add("previous--image");
         }
     }
+    setTimeout(() => { // Réinitialiser les événements de la carte après l'animation
+        isAnimating = false; // Permettre de nouvelles animations
+    }, 1000); // Durée de l'animation en millisecondes (correspond à la durée de l'animation CSS)
 }
 
 function changeInfo(direction) {

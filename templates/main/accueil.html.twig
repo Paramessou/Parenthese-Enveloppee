@@ -4,15 +4,13 @@
 	<link rel="stylesheet" href="{{ asset('css/accueil.css') }}">
 {% endblock %}
 {% block title %}
-	{{ parent() }}
-	| Accueil
+	{{ parent() }} | Accueil
 {% endblock %}
 {% block header %}
-{{ parent() }}
+	{{ parent() }}
 {% endblock %}
 {% block body %}
-	<div class="app accueil-container">
-
+	<section class="app accueil-container">
 		<div class="cardList">
 			<button class="cardList__btn btn btn--left">
 				<div class="icon">
@@ -23,15 +21,15 @@
 			</button>
 
 			<div class="cards__wrapper">
-				<div class="card current--card">
+				<a href="{{path('main_presentation')}}" class="card current--card">
 					<div class="card__image">
 						<img src="{{asset('img/massage-bebe-six-fours-les-plages.jpg')}}" alt=""/>
 					</div>
-				</div>
+				</a>
 
 				<div class="card next--card">
 					<div class="card__image">
-						<img src="{{asset('img/portage-bebe-six-fours-les-plages.jpg')}}" alt=""/>
+						<img src="{{asset('img/portage-bebe-six-fours-les-plages.jpg')}}" alt=""/> 
 					</div>
 				</div>
 
@@ -55,9 +53,9 @@
 			<div class="info__wrapper">
 				<div class="info current--info">
 					<h1 class="text name">Massage bébé</h1>
-					<h4 class="text location">
-						de 0 à 10 ans</h4>
+					<h4 class="text location">de 0 à 10 ans</h4>
 					<p class="text description">Moment de détente à partager en famille</p>
+					
 				</div>
 
 				<div class="info next--info">
@@ -68,13 +66,11 @@
 
 				<div class="info previous--info">
 					<h1 class="text name">Réflexologie bébé<br>émotionnelle®</h1>
-					<h4 class="text location">de 0 à 10 ans
-					</h4>
+					<h4 class="text location">de 0 à 10 ans</h4>
 					<p class="text description">Apaisez votre bébé en alliant les gestes aux mots</p>
 				</div>
 			</div>
 		</div>
-
 
 		<div class="app__bg">
 			<div class="app__bg__image current--image">
@@ -87,7 +83,7 @@
 				<img src="{{asset('img/reflexologie-bebe-six-fours-les-plages2.jpg')}}" alt=""/>
 			</div>
 		</div>
-	</div>
+	</section>
 
 	<div class="loading__wrapper">
 		<div class="loader--text">Chargement...</div>
@@ -103,13 +99,10 @@
 			<polyline points='184 112 328 256 184 400' style='fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px'/>
 		</symbol>
 	</svg>
-	{% block footer %}
+{% endblock %}
+{% block javascripts %}
 	{{ parent() }}
-	{% endblock %}
-	{% block javascripts %}
-	{{ parent() }}
-    <script src="{{ asset('https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js') }}"></script>
+	<script src="{{ asset('https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js') }}"></script>
 	<script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js') }}"></script>
 	<script src="{{ asset('javascript/app.js') }}"></script>
-    {% endblock %}
 {% endblock %}

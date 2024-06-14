@@ -10,22 +10,22 @@
     <link rel="shortcut icon" href="{{asset('img/PE.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/base.css') }}">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-{% block stylesheets %}
-    {{ encore_entry_link_tags('app') }} 
-{% endblock %}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }} 
+    {% endblock %}
 </head>
 <body>
-    <h1>
-        <a href="{{ path('main_accueil') }}"><img class="logo-header" src="{{ asset('img/parenthese-enveloppee-accompagnement-parental.jpg') }}" alt="logo parenthese-enveloppee"></a>
-    </h1>
-{% block header %} 
-    <header class="mainHeader">
-        <nav class="navHeader">
-            <div id="menu">
+    {% block header %} 
+        <header class="mainHeader">
+            <nav class="navHeader">
+                <div id="menu">
                     <ul>
                         <li><a href="{{path('main_presentation')}}" title="présentation">Présentation</a></li>
                         <li><a {#href="{{path('')}}"#} title="prestations">Prestations</a></li>
                         <li><a href="{{path('app_calendar')}}" title="réserver">Réserver</a></li>
+                        <h1 class="logo-header">
+                            <a href="{{ path('main_accueil') }}"><img class="logo" src="{{ asset('img/parenthese-enveloppee-accompagnement-parental.jpg') }}" alt="logo parenthese-enveloppee"></a>
+                        </h1>
                         <li><a {#href="{{path('')}}"#} title="offrirPrestation">Offrir prestation</a></li>
                         <li><a {#href="{{path('')}}"#} title="contact">Contact</a></li>
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
@@ -50,21 +50,20 @@
                             <li><a href="{{path('admin_dashboard')}}" title="admin">Admin</a></li>
                         {% endif %}
                     </ul>
-            </div>
-        </nav>
-    </header>
-{% endblock %}
-{% block body %}
+                </div>
+            </nav>
+        </header>
+    {% endblock %}
     <main>
+        {% block body %}{% endblock %}
     </main>
-{% endblock %}
-{% block footer %} 
-    <footer>
-        <p>© 2023 - Parenthèse Enveloppée - Tous droits réservés</p>
-    </footer>
-{% endblock %}
-{% block javascripts %}
-    <script src="{{ asset('javascript/dropdown.js') }}"></script>
-{% endblock %}
+    {% block footer %} 
+        <footer>
+            <p>© 2023 - Parenthèse Enveloppée - Tous droits réservés</p>
+        </footer>
+    {% endblock %}
+    {% block javascripts %}
+        <script src="{{ asset('javascript/dropdown.js') }}"></script>
+    {% endblock %}
 </body>
 </html>

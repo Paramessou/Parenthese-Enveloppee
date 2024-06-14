@@ -10,7 +10,19 @@
   --card-transition-easing: ease;
 }
 
-.app.accueil-container,
+.app-accueil-banner {
+  padding: 20px;
+  background-color: #f8f8f8;
+}
+
+.app-accueil-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .app__bg,
 .app__bg__image,
 .app__bg__image img {
@@ -21,12 +33,6 @@
 
 body {
   width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.787);
-  overflow: hidden;
   margin: 0;
   padding: 0;
 }
@@ -44,7 +50,7 @@ button:focus {
 .app {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 400px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,7 +60,6 @@ button:focus {
   width: 100%;
   height: 100%;
   z-index: -5;
-  filter: blur(4px);
   pointer-events: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -77,8 +82,8 @@ button:focus {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%) translateX(var(--image-translate-offset));
-  width: 180%;
-  height: 180%;
+  width: 100%;
+  height: 100%;
   transition: transform 1000ms ease, opacity 1000ms ease;
   overflow: hidden;
 }
@@ -150,6 +155,8 @@ button:focus {
   -webkit-user-select: none;
   -moz-user-select: none;
        user-select: none;
+  text-decoration: none;
+  color: inherit;
 }
 .card::before {
   content: "";
@@ -312,8 +319,8 @@ button:focus {
 
 @media only screen and (min-width: 1100px) {
   :root {
-    --card-width: 330px;
-    --card-height: 495px;
+    --card-width: 250px;
+    --card-height: 320px;
   }
 }
 @media only screen and (min-width: 800px) and (max-width: 1099px) {
