@@ -4,13 +4,13 @@
   src: url(../fonts/Mali-Regular.ttf);
 }
 main {
-  margin-top: 120px; /* Ajustez cette valeur en fonction de la hauteur de votre menu */
+  margin-top: 120px; /* Ajuster cette valeur en fonction de la hauteur du menu */
 }
 
 .logo-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 20px;
 }
 
 .logo {
@@ -24,12 +24,15 @@ main {
 }
 
 header.mainHeader {
-  background: linear-gradient(135deg, #af7372 0%, rgb(195, 146, 142) 49%, #d0adab 69%, #f0e2e1 100%);
+  background: linear-gradient(135deg, #D7972D 0%, #FFC46D 20%, #F8C492 50%, #F6D2A9 70%, #FFCA7F 100%);
   width: 100%;
   position: absolute;
   top: 0;
   height: 120px;
   z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 header.mainHeader::after {
   content: "";
@@ -48,13 +51,15 @@ header.mainHeader::after {
 
 .navHeader {
   position: relative;
-  top: 65px;
 }
 
 nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 nav ul li {
   display: inline-block;
@@ -76,6 +81,10 @@ nav ul li a:not(.dropdown a):hover {
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.5);
 }
 
+#reserver {
+  margin-right: 35px;
+}
+
 .menuPresentation {
   margin: 0;
 }
@@ -95,7 +104,6 @@ nav ul li a:not(.dropdown a):hover {
   border: 1px solid white;
   box-shadow: 10px 6px 15px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
-  margin-bottom: 13px;
 }
 .dropdown .dropdown-button:hover {
   transform: translateY(-5px);
@@ -104,26 +112,15 @@ nav ul li a:not(.dropdown a):hover {
 .dropdown .dropdown-content {
   display: none;
   position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  border-bottom: 3px solid #fff;
-  border-left: 3px solid #fff;
-  border-right: 3px solid #fff;
-  margin-left: 30px;
   font-family: "Mali-Regular", "Montserrat", "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
   background: linear-gradient(180deg, transparent 0%, #d2b4b3 0%, #dbc2c0 100%);
   text-align: left;
   min-width: 132px;
   z-index: 1;
-}
-.dropdown .dropdown-content::before { /* gestion ombre interne sur bordure haute quand menu ouvert */
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 5px;
-  box-shadow: inset 0px 3px 4px rgba(0, 0, 0, 0.1);
 }
 .dropdown .dropdown-content a {
   color: black;
@@ -138,10 +135,22 @@ nav ul li a:not(.dropdown a):hover {
 .dropdown:hover .dropdown-button {
   color: white;
 }
-.dropdown .dropdown-button:focus {
-  border: 1px solid white;
+.dropdown .dropdown-button:focus + .dropdown-content,
+.dropdown .dropdown-button:active + .dropdown-content,
+.dropdown .dropdown-content:hover {
+  display: block;
 }
 
+@keyframes dropdown-animation {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 @media screen and (min-width: 2560px) {
   nav li {
     margin-left: 100px;
@@ -150,7 +159,6 @@ nav ul li a:not(.dropdown a):hover {
   .dropdown-button {
     margin-left: 100px;
     font-size: 18px;
-    margin-bottom: 9.5px;
   }
   .dropdown-content {
     margin-left: 100px;
@@ -163,7 +171,7 @@ nav ul li a:not(.dropdown a):hover {
   }
 }
 footer {
-  background: linear-gradient(135deg, rgb(240, 226, 225) 0%, rgb(208, 173, 171) 31%, rgb(195, 146, 142) 51%, rgb(175, 115, 114) 100%);
+  background: linear-gradient(135deg, #FFCA7F 0%, #F6D2A9 20%, #F8C492 50%, #FFC46D 70%, #D7972D 100%);
   width: 100%;
   position: fixed;
   bottom: 0;

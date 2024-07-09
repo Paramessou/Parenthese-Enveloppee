@@ -6,24 +6,25 @@ body {
   position: relative;
   justify-content: space-between;
   padding: 2em;
-  background-color: #cebbbb;
   margin-top: 120px;
   height: calc(100vh - 240px);
 }
 
 .presentation__image {
   position: absolute;
-  top: 125px;
+  top: 7em;
   left: 2em;
   width: 40%;
   margin-right: 2em;
   background-color: #fff;
-  border: 1px solid #cfaba9;
+  border: 1px solid #e2a33e;
   padding: 1em;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
 }
 .presentation__image img {
   width: 100%;
+  border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 

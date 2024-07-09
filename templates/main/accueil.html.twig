@@ -10,6 +10,7 @@
 	{{ parent() }}
 {% endblock %}
 {% block body %}
+	<img src="{{ asset('img/bebe-souriant-tailleur.png') }}" class="bebe" alt="bébé en tailleur">
 	<section class="app accueil-container">
 		<div class="cardList">
 			<button class="cardList__btn btn btn--left">
@@ -84,7 +85,18 @@
 			</div>
 		</div>
 	</section>
-
+	<section class="presentation">
+		<div class="presentation__wrapper">
+			<div class="presentation__content">
+				<h2 class="presentation__title">Bienvenue chez Parenthèse Enveloppée</h2>
+				<p class="presentation__text">Je vous propose des ateliers de massage bébé, de portage bébé et de réflexologie bébé émotionnelle® à Six-Fours-les-Plages et ses environs.</p>
+				<p class="presentation__text">Ces ateliers sont des moments de partage et de complicité entre vous et votre enfant. Ils vous permettent de renforcer le lien d'attachement, de mieux comprendre les besoins de votre enfant et de l'accompagner dans son développement.</p>
+				<p class="presentation__text">Les ateliers sont adaptés à l'âge de votre enfant et se déroulent en petit groupe ou en individuel.</p>
+				<p class="presentation__text">N'hésitez pas à me contacter pour plus d'informations ou pour réserver votre atelier.</p>
+			</div>
+			<a href="{{path('main_presentation')}}" class="btn btn--primary">En savoir plus</a>
+		</div>
+	</section>
 	<div class="loading__wrapper">
 		<div class="loader--text">Chargement...</div>
 		<div class="loader">

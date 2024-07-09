@@ -5,6 +5,9 @@
     src: url(../fonts/Mali-Regular.ttf);
 }
 
+$font-stack: 'Mali-Regular', 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+// Section cartes version bannière
 :root {
     --card-width: 200px;
     --card-height: 300px;
@@ -253,7 +256,7 @@ button {
 
     .text {
         position: relative;
-        font-family: 'Mali-Regular', 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-family: $font-stack;
         font-size: calc(var(--card-width) * var(--text-size-offset, 0.2));
         white-space: nowrap;
         color: #fff;
@@ -317,6 +320,8 @@ button {
     }
 }
 
+
+// Barre de chargement de la page
 .loading__wrapper {
     position: fixed;
     left: 0;
@@ -354,6 +359,29 @@ button {
             transform-origin: left;
         }
     }
+}
+
+// Section présentation
+.presentation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    font-family: $font-stack;
+    background-color: #f8f8f8;
+}
+
+// gestion image bébé sur page d'accueil
+.bebe {
+    width: 15%; //largeur du bébé
+    height: auto; //hauteur du bébé
+    position: fixed; //position fixe pour que le bébé reste à la même place même pendant le scroll
+    top: 50%; //placer le bébé à 50% du haut de la page
+    left: 88%; //placer le bébé à 70% de la gauche de la page
+    transform: translateY(-10%); //déplace le bébé de 50% de sa hauteur vers le haut pour le centrer verticalement
+    z-index: 0;
 }
 
 @media only screen and (min-width: 1100px) {

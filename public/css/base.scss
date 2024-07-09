@@ -9,8 +9,9 @@
 $header-height: 120px;
 $logo-size: 90px;
 $font-stack: 'Mali-Regular', 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-$gradient-header: linear-gradient(135deg, #af7372 0%, rgba(195, 146, 142, 1) 49%, #d0adab 69%, #f0e2e1 100%);
-$gradient-footer: linear-gradient(135deg, rgba(240, 226, 225, 1) 0%, rgba(208, 173, 171, 1) 31%, rgba(195, 146, 142, 1) 51%, rgba(175, 115, 114, 1) 100%);
+$gradient-header: linear-gradient(135deg, #D7972D 0%, #FFC46D 20%, #F8C492 50%, #F6D2A9 70%, #FFCA7F 100%);
+//linear-gradient(135deg, #fda15d 0%, #eaa26e 49%, #df9f6f  69%, #e1bfa6 100%); //(135deg, #af7372 0%, #c3928e 49%, #d0adab 69%, #f0e2e1 100%);
+$gradient-footer: linear-gradient(135deg, #FFCA7F 0%, #F6D2A9 20%, #F8C492 50%, #FFC46D 70%,#D7972D 100%); //linear-gradient(135deg, #f0e2e1 0%, #d0adab 31%, #c3928e 51%, #af7372 100%);
 $dropdown-bg: linear-gradient(180deg, transparent 0%, #d2b4b3 0%, #dbc2c0 100%);
 $box-shadow: 10px 6px 15px rgba(0, 0, 0, 0.5);
 $border-radius: 10px;
@@ -25,15 +26,15 @@ $border-radius: 10px;
 
 // Main content
 main {
-    margin-top: $header-height; /* Ajustez cette valeur en fonction de la hauteur de votre menu */
+    margin-top: $header-height; /* Ajuster cette valeur en fonction de la hauteur du menu */
 }
 
 // Header
 
 .logo-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 20px; // Ajout de marges pour séparer le logo des autres éléments
 }
 
 .logo {
@@ -42,16 +43,6 @@ main {
     border-radius: 50%;
     @include box-shadow-hover;
 }
-// .logo-header {
-//     position: absolute;
-//     top: 15px;
-//     left: 100px;
-//     border-radius: 50%;
-//     height: $logo-size;
-//     width: auto;
-//     z-index: 2;
-//     @include box-shadow-hover;
-// }
 
 header.mainHeader {
     background: $gradient-header;
@@ -60,7 +51,9 @@ header.mainHeader {
     top: 0;
     height: $header-height;
     z-index: 1;
-    // border-bottom: 3px solid #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &::after {
         content: "";
@@ -80,7 +73,6 @@ header.mainHeader {
 
 .navHeader {
     position: relative;
-    top: 65px;
 }
 
 nav {
@@ -88,6 +80,9 @@ nav {
         list-style: none;
         padding: 0;
         margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         li {
             display: inline-block;
@@ -107,6 +102,10 @@ nav {
             }
         }
     }
+}
+
+#reserver {
+    margin-right: 35px;
 }
 
 .menuPresentation {
@@ -129,34 +128,21 @@ nav {
         border: 1px solid white;
         box-shadow: $box-shadow;
         border-radius: $border-radius;
-        margin-bottom: 13px;
         @include box-shadow-hover;
     }
 
     .dropdown-content {
         display: none;
         position: absolute;
+        top: calc(100% + 10px); // Positionné juste en dessous du bouton dropdown
+        left: 0;
         border-bottom-left-radius: $border-radius;
         border-bottom-right-radius: $border-radius;
-        border-bottom: 3px solid #fff;
-        border-left: 3px solid #fff;
-        border-right: 3px solid #fff;
-        margin-left: 30px;
         font-family: $font-stack;
         background: $dropdown-bg;
         text-align: left;
         min-width: 132px;
         z-index: 1;
-
-        &::before { /* gestion ombre interne sur bordure haute quand menu ouvert */
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            box-shadow: inset 0px 3px 4px rgba(0, 0, 0, 0.1);
-        }
 
         a {
             color: black;
@@ -177,8 +163,22 @@ nav {
         }
     }
 
-    .dropdown-button:focus {
-        border: 1px solid white;
+    .dropdown-button:focus + .dropdown-content,
+    .dropdown-button:active + .dropdown-content,
+    .dropdown-content:hover {
+        display: block;
+    }
+}
+
+// Animation pour le dropdown
+@keyframes dropdown-animation {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -192,7 +192,6 @@ nav {
     .dropdown-button {
         margin-left: 100px;
         font-size: 18px;
-        margin-bottom: 9.5px;
     }
 
     .dropdown-content {
