@@ -3,8 +3,20 @@
   font-family: "Mali-Regular";
   src: url(../fonts/Mali-Regular.ttf);
 }
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 main {
   margin-top: 120px; /* Ajuster cette valeur en fonction de la hauteur du menu */
+  flex: 1;
 }
 
 .logo-header {
@@ -21,10 +33,13 @@ main {
 .logo:hover {
   transform: translateY(-5px);
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.5);
+  color: #fdd359;
 }
 
 header.mainHeader {
-  background: linear-gradient(135deg, #D7972D 0%, #FFC46D 20%, #F8C492 50%, #F6D2A9 70%, #FFCA7F 100%);
+  background: url(../img/sable-header.png) no-repeat;
+  background-size: 245px;
+  background-color: #fffcf5;
   width: 100%;
   position: absolute;
   top: 0;
@@ -33,16 +48,7 @@ header.mainHeader {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-header.mainHeader::after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 0;
-  width: 100%;
-  height: 10px;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), transparent);
-  filter: blur(8px);
+  border-bottom: 2px solid #fdd359;
 }
 
 #menu {
@@ -79,6 +85,7 @@ nav ul li a:not(.dropdown a) {
 nav ul li a:not(.dropdown a):hover {
   transform: translateY(-5px);
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.5);
+  color: #fdd359;
 }
 
 #reserver {
@@ -108,6 +115,7 @@ nav ul li a:not(.dropdown a):hover {
 .dropdown .dropdown-button:hover {
   transform: translateY(-5px);
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.5);
+  color: #fdd359;
 }
 .dropdown .dropdown-content {
   display: none;
@@ -130,10 +138,10 @@ nav ul li a:not(.dropdown a):hover {
 }
 .dropdown .dropdown-content a:hover {
   background-color: none;
-  color: white;
+  color: #fdd359;
 }
 .dropdown:hover .dropdown-button {
-  color: white;
+  color: #fdd359;
 }
 .dropdown .dropdown-button:focus + .dropdown-content,
 .dropdown .dropdown-button:active + .dropdown-content,
@@ -173,9 +181,8 @@ nav ul li a:not(.dropdown a):hover {
 footer {
   background: linear-gradient(135deg, #FFCA7F 0%, #F6D2A9 20%, #F8C492 50%, #FFC46D 70%, #D7972D 100%);
   width: 100%;
-  position: fixed;
-  bottom: 0;
   text-align: center;
   font-family: "Mali-Regular", "Montserrat", "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
   border-top: 3px solid #fff;
+  padding: 20px 0;
 }/*# sourceMappingURL=base.css.map */

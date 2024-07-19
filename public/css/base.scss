@@ -9,24 +9,38 @@
 $header-height: 120px;
 $logo-size: 90px;
 $font-stack: 'Mali-Regular', 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-$gradient-header: linear-gradient(135deg, #D7972D 0%, #FFC46D 20%, #F8C492 50%, #F6D2A9 70%, #FFCA7F 100%);
+// $gradient-header: linear-gradient(135deg, #D7972D 0%, #FFC46D 20%, #F8C492 50%, #F6D2A9 70%, #FFCA7F 100%);
 //linear-gradient(135deg, #fda15d 0%, #eaa26e 49%, #df9f6f  69%, #e1bfa6 100%); //(135deg, #af7372 0%, #c3928e 49%, #d0adab 69%, #f0e2e1 100%);
 $gradient-footer: linear-gradient(135deg, #FFCA7F 0%, #F6D2A9 20%, #F8C492 50%, #FFC46D 70%,#D7972D 100%); //linear-gradient(135deg, #f0e2e1 0%, #d0adab 31%, #c3928e 51%, #af7372 100%);
 $dropdown-bg: linear-gradient(180deg, transparent 0%, #d2b4b3 0%, #dbc2c0 100%);
 $box-shadow: 10px 6px 15px rgba(0, 0, 0, 0.5);
 $border-radius: 10px;
+$button-txt-color-hover:#fdd359;
 
 // Mixins
 @mixin box-shadow-hover {
     &:hover {
         transform: translateY(-5px);
         box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.5);
+        color: $button-txt-color-hover;
     }
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 // Main content
 main {
     margin-top: $header-height; /* Ajuster cette valeur en fonction de la hauteur du menu */
+    flex: 1;
 }
 
 // Header
@@ -45,7 +59,9 @@ main {
 }
 
 header.mainHeader {
-    background: $gradient-header;
+    background: url(../img/sable-header.png) no-repeat;
+    background-size: 245px;
+    background-color: #fffcf5;
     width: 100%;
     position: absolute;
     top: 0;
@@ -54,17 +70,18 @@ header.mainHeader {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-bottom: 2px solid $button-txt-color-hover;
 
-    &::after {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-        width: 100%;
-        height: 10px;
-        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), transparent);
-        filter: blur(8px);
-    }
+    // &::after {
+    //     content: "";
+    //     position: absolute;
+    //     bottom: -10px;
+    //     left: 0;
+    //     width: 100%;
+    //     height: 10px;
+    //     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), transparent);
+    //     filter: blur(8px);
+    // }
 }
 
 #menu {
@@ -152,14 +169,14 @@ nav {
 
             &:hover {
                 background-color: none;
-                color: white;
+                color: $button-txt-color-hover;
             }
         }
     }
 
     &:hover {
         .dropdown-button {
-            color: white;
+            color: $button-txt-color-hover;
         }
     }
 
@@ -210,9 +227,8 @@ nav {
 footer {
     background: $gradient-footer;
     width: 100%;
-    position: fixed;
-    bottom: 0;
     text-align: center;
     font-family: $font-stack;
     border-top: 3px solid #fff;
+    padding: 20px 0;
 }

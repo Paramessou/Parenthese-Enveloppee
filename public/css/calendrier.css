@@ -19,27 +19,30 @@ body {
   height: 621px;
 }
 .calendar .fc-button-primary {
-  background-color: #b78885;
-  border-color: rgb(22, 23, 92);
-  color: white;
+  background-color: #D7972D;
+  border-color: #16175c;
+  color: #ffffff;
 }
 .calendar .fc-button-primary:not(:disabled).fc-button-active, .calendar .fc-button-primary:not(:disabled):active {
-  background-color: rgb(241, 100, 88);
-  border-color: #151e27;
-  color: white;
-}
-.calendar .fc-button-primary:not(:disabled).fc-button-active:focus, .calendar .fc-button-primary:not(:disabled):active:focus {
-  box-shadow: rgba(213, 117, 169, 0.5) 0px 0px 0px 0.2rem;
-}
-.calendar .fc-today-button {
   background-color: #f16458;
   border-color: #151e27;
-  color: white;
+  color: #ffffff;
+}
+.calendar .fc-button-primary:not(:disabled).fc-button-active:focus, .calendar .fc-button-primary:not(:disabled):active:focus {
+  box-shadow: #D7972D 0px 0px 2px 0.1rem;
+}
+.calendar .fc-button-primary.fc-button-primary:focus {
+  box-shadow: #D7972D 0px 0px 2px 0.1rem;
+}
+.calendar .fc-today-button {
+  background-color: #ff9a03;
+  border-color: #151e27;
+  color: #ffffff;
 }
 .calendar .fc-today-button:disabled {
-  background-color: #b78885;
+  background-color: #F6D2A9;
   border-color: #151e27;
-  color: white;
+  color: #ffffff;
 }
 
 .rdvForm {
@@ -75,7 +78,7 @@ body {
   border: 3px solid #af7372;
 }
 .rdvForm form button {
-  background: linear-gradient(135deg, #af7372 0%, rgb(195, 146, 142) 49%, rgb(208, 173, 171) 69%, rgb(240, 226, 225) 100%);
+  background: linear-gradient(135deg, #D7972D 0%, #FFC46D 20%, #F8C492 50%, #F6D2A9 70%, #FFCA7F 100%);
   color: #fff;
   border: 1px solid #ccc;
   padding: 10px;
@@ -118,7 +121,7 @@ body {
   border: 3px solid #af7372;
 }
 .vueRdv form button {
-  background: linear-gradient(135deg, #af7372 0%, rgb(195, 146, 142) 49%, rgb(208, 173, 171) 69%, rgb(240, 226, 225) 100%);
+  background: linear-gradient(135deg, #D7972D 0%, #FFC46D 20%, #F8C492 50%, #F6D2A9 70%, #FFCA7F 100%);
   color: #fff;
   border: 1px solid #ccc;
   padding: 10px;
@@ -161,7 +164,7 @@ body {
   border: 3px solid #af7372;
 }
 .modifRdv form button {
-  background: linear-gradient(135deg, #af7372 0%, rgb(195, 146, 142) 49%, rgb(208, 173, 171) 69%, rgb(240, 226, 225) 100%);
+  background: linear-gradient(135deg, #D7972D 0%, #FFC46D 20%, #F8C492 50%, #F6D2A9 70%, #FFCA7F 100%);
   color: #fff;
   border: 1px solid #ccc;
   padding: 10px;

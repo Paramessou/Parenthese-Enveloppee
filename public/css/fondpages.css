@@ -7,17 +7,16 @@ body {
   justify-content: space-between;
   padding: 2em;
   margin-top: 120px;
-  height: calc(100vh - 240px);
 }
 
 .presentation__image {
   position: absolute;
-  top: 7em;
+  top: 9em;
   left: 2em;
   width: 40%;
   margin-right: 2em;
-  background-color: #fff;
-  border: 1px solid #e2a33e;
+  background-color: #fffcf5;
+  border: 1px solid #f9cb60;
   padding: 1em;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
   border-radius: 10px;

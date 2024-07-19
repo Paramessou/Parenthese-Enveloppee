@@ -53,7 +53,7 @@ buttons.prev.addEventListener("click", () => {
     }
 });
 
-// Ajout de l'événement clavier avec la fonction debounce
+// Ajout de l'événement clavier avec la fonction debounce qui permet de limiter les appels répétitifs
 document.addEventListener("keydown", debounce((event) => {
     if (!isAnimating) {
         if (event.key === "ArrowLeft" || event.key === "Left") {
@@ -289,7 +289,7 @@ if (typeof window.waitForImages === 'undefined') {
                     let loadProgress = loadedImages / totalImages;
 
                     gsap.to(loaderEl, {
-                        duration: 1,
+                        duration: 2, // Durée de l'animation en secondes
                         scaleX: loadProgress,
                         backgroundColor: `hsl(${loadProgress * 120}, 100%, 50%`,
                     });
@@ -297,7 +297,7 @@ if (typeof window.waitForImages === 'undefined') {
                     if (totalImages == loadedImages) {
                         gsap.timeline()
                             .to(".loading__wrapper", {
-                                duration: 0.8,
+                                duration: 2, // Durée de l'animation en secondes
                                 opacity: 0,
                                 pointerEvents: "none",
                             })
@@ -310,3 +310,13 @@ if (typeof window.waitForImages === 'undefined') {
 };   
 
 waitForImages();
+
+// Gestion cercles page d'accueil
+$(document).ready(function(){
+    $(".txt-block").hide();
+    $(".dynamic-circle").each(function(){
+        $(this).find('.inCircle').click(function(){
+            $(this).closest('.dynamic-circle').find('.txt-block').slideToggle("slow");
+        });
+    });
+});

@@ -1,3 +1,5 @@
+$font-stack: 'Mali-Regular', 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
 body {
     margin: 0;
 }
@@ -7,17 +9,17 @@ body {
     padding: 2em;
     // background-color: #cebbbb; //#f5f5f5;
     margin-top: 120px;
-    height: calc(100vh - 240px);
+    // height: calc(100vh - 240px); // 120px pour le header et 120px pour le footer
 }
 
 .presentation__image {
     position: absolute;
-    top: 7em;
+    top: 9em;
     left: 2em;
     width: 40%;
     margin-right: 2em;
-    background-color: #fff;
-    border: 1px solid #e2a33e;
+    background-color: #fffcf5;
+    border: 1px solid #f9cb60;
     padding: 1em;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7); // Ajoute une ombre pour donner un effet de profondeur
     border-radius: 10px;
@@ -38,7 +40,7 @@ body {
     text-align: justify;
     font-size: 14px;
     line-height: 1.55;
-    font-family: 'Mali-Regular', 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: $font-stack;
 }
 
 // @media screen and (min-width: 1300px) and (max-width: 1800px) {

@@ -3,6 +3,42 @@
   font-family: "Mali-Regular";
   src: url(../fonts/Mali-Regular.ttf);
 }
+.loading__wrapper {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  z-index: 200;
+}
+.loading__wrapper .loader--text {
+  color: #ffffff;
+  font-family: "Mali-Regular", "Montserrat", "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  font-weight: 500;
+  margin-bottom: 1.4rem;
+}
+.loading__wrapper .loader {
+  position: relative;
+  width: 200px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.2509803922);
+}
+.loading__wrapper .loader span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #ff0000;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
 :root {
   --card-width: 200px;
   --card-height: 300px;
@@ -281,42 +317,6 @@ button:focus {
   display: none;
 }
 
-.loading__wrapper {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: #000;
-  z-index: 200;
-}
-.loading__wrapper .loader--text {
-  color: #fff;
-  font-family: "Mali-Regular", "Montserrat", "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
-  font-weight: 500;
-  margin-bottom: 1.4rem;
-}
-.loading__wrapper .loader {
-  position: relative;
-  width: 200px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.25);
-}
-.loading__wrapper .loader span {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgb(255, 0, 0);
-  transform: scaleX(0);
-  transform-origin: left;
-}
-
 .presentation {
   display: flex;
   justify-content: center;
@@ -325,17 +325,157 @@ button:focus {
   gap: 20px;
   padding: 20px;
   font-family: "Mali-Regular", "Montserrat", "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
-  background-color: #f8f8f8;
+  background-color: #fffcf5;
+  text-align: justify;
 }
 
-.bebe {
-  width: 15%;
-  height: auto;
-  position: fixed;
+.title {
+  font-family: "Mali-Regular", "Montserrat", "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  color: #000;
+  text-align: center;
+  padding: 20px;
+}
+
+.circles-portage,
+.circles-reflexologie {
+  width: 100%;
+}
+.circles-portage .row,
+.circles-reflexologie .row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.circles-portage .dynamic-circle,
+.circles-reflexologie .dynamic-circle {
+  flex: 1 1 calc(33.333% - 20px);
+  margin: 10px;
+}
+.circles-portage .dynamic-circle .circles,
+.circles-reflexologie .dynamic-circle .circles {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+.circles-portage .dynamic-circle .outCircle,
+.circles-reflexologie .dynamic-circle .outCircle {
+  position: relative;
+  border: 2px solid #fdd359;
+  border-radius: 50%;
+  background: #fffcf5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  z-index: 1;
+  width: 40%;
+  padding-top: 40%;
+}
+.circles-portage .dynamic-circle .inCircle,
+.circles-reflexologie .dynamic-circle .inCircle {
+  position: absolute;
   top: 50%;
-  left: 88%;
-  transform: translateY(-10%);
+  left: 50%;
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
+  background-color: #fff;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0px 3px 11px 0px rgba(0, 0, 0, 0.35);
+  word-wrap: break-word;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 2;
+}
+.circles-portage .dynamic-circle .inCircle:hover,
+.circles-reflexologie .dynamic-circle .inCircle:hover {
+  transform: translate(-50%, -50%) translateY(-5px);
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+.circles-portage .dynamic-circle .inCircle h3,
+.circles-reflexologie .dynamic-circle .inCircle h3 {
+  text-align: center;
+  font-family: "Mali-Regular", "Montserrat", "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  font-size: 19px;
+  color: #000;
+  background-color: rgba(255, 255, 255, 0.7019607843);
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+.circles-portage .dynamic-circle .txt-block,
+.circles-reflexologie .dynamic-circle .txt-block {
+  display: block;
+  position: relative;
+  list-style-type: none;
+  padding-left: 0;
+  background-color: #fffcf5;
+  border: 2px solid #fdd359;
+  border-radius: 10px;
+  padding-top: 115px;
+  transform: translateY(-140px);
   z-index: 0;
+  width: 265px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.circles-portage .dynamic-circle .txt-block.collapsed,
+.circles-reflexologie .dynamic-circle .txt-block.collapsed {
+  max-height: 0;
+  transition: max-height 0.5s ease-out;
+}
+.circles-portage .dynamic-circle .txt-hidden,
+.circles-reflexologie .dynamic-circle .txt-hidden {
+  display: block;
+  list-style-type: none;
+  padding-left: 0;
+}
+.circles-portage .dynamic-circle .txt-hidden li,
+.circles-reflexologie .dynamic-circle .txt-hidden li {
+  padding: 10px;
+  color: #000;
+  font-family: "Mali-Regular", "Montserrat", "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  font-size: 14px;
+  text-align: justify;
+}
+.circles-portage .circle-1 .inCircle,
+.circles-reflexologie .circle-1 .inCircle {
+  background-size: 175%;
+  background-position: center 35%;
+}
+.circles-portage .circle-2 .inCircle,
+.circles-reflexologie .circle-2 .inCircle {
+  background-size: 196%;
+  background-position: center;
+}
+.circles-portage .circle-3 .inCircle,
+.circles-reflexologie .circle-3 .inCircle {
+  background-size: 196%;
+  background-position: center;
+}
+.circles-portage.circles-reflexologie .circle-4 .inCircle,
+.circles-reflexologie.circles-reflexologie .circle-4 .inCircle {
+  background-size: 150%;
+  background-position: 10% center;
+}
+
+.circles-reflexologie .dynamic-circle .circles {
+  justify-content: center;
+}
+.circles-reflexologie .dynamic-circle .outCircle {
+  width: 13.2%;
+  padding-top: 13.2%;
+}
+.circles-reflexologie .dynamic-circle .inCircle {
+  width: 90%;
+  height: 90%;
 }
 
 @media only screen and (min-width: 1100px) {

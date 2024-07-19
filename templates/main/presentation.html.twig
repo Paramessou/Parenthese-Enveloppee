@@ -13,8 +13,8 @@
             <img src="{{ asset('img/portage-six-fours-les-plages-3.jpg') }}" alt="Laura">
         </div>
         <div class="presentation__text">
-			Commençons par une petite présentation, pour mettre un visage et mieux cibler les valeurs qui me définissent au quotidien!<br>
-			Je m’appelle Laura, j’ai 34 ans et je vis du côté de Six-Fours-Les-Plages dans le Var.<br><br>
+			<p id="age">Commençons par une petite présentation, pour mettre un visage et mieux cibler les valeurs qui me définissent au quotidien!<br>
+			Je m’appelle Laura, j’ai <span id="dynamic-age"></span> ans et je vis du côté de Six-Fours-Les-Plages dans le Var.<br><br>
 
 			Côté vie professionnelle, j’ai été attirée par la petite enfance dès mon plus jeune âge et c’est donc tout naturellement que je me suis dirigée vers le métier d’auxiliaire de puériculture. J’ai obtenu le diplôme en 2014, ce qui m’a permis d’exercer jusqu’à ce jour en structures d’accueil de jeunes enfants de type crèches.<br>
 			Cela m’a permis d’affiner ma pratique, de mieux comprendre les enjeux dans le développement de l’enfant, de travailler mon sens du relationnel et de construire la professionnelle que je suis aujourd’hui.<br> 
@@ -28,17 +28,29 @@
 			C’est donc tout naturellement que j’ai créé « Parenthèse Enveloppée » en avril 2023 après avoir longuement mûri les choses.
 			Je propose donc des ateliers aux familles, à leur domicile en individuel pour un moment entièrement personnalisé. Les ateliers peuvent également être proposés en collectif ce qui permet aux familles de rencontrer d’autres familles vivant les mêmes choses, ça crée du lien en plus avec l’extérieur.<br>
 			Si vous êtes tenté(e)s par un moment de partage avec votre enfant en utilisant des gestes concrets, venez me rencontrer et accordez-vous cette parenthèse de douceur!
+			</p>
 		</div>
 	</div>
 	{% block javascript %}
 		<script>
-			document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-				anchor.addEventListener('click', function (e) {
-				e.preventDefault();
+			// Calcul de l'âge de l'admin
+			function calculateAge(birthDate) {
+				const today = new Date();
+				let age = today.getFullYear() - birthDate.getFullYear();
+				const monthDiff = today.getMonth() - birthDate.getMonth();
+				if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+					age--;
+				}
+				return age;
+			}
 
-				document.querySelector(this.getAttribute('href')).scrollIntoView({behavior: 'smooth'});
-				});
-			});
+			function updateAge() {
+				const birthDate = new Date('1989-04-28');
+				const age = calculateAge(birthDate);
+				document.getElementById('dynamic-age').textContent = age;
+			}
+
+			document.addEventListener('DOMContentLoaded', updateAge);
 		</script>
 	{% endblock %}
 {% endblock %}

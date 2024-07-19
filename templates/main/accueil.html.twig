@@ -10,7 +10,7 @@
 	{{ parent() }}
 {% endblock %}
 {% block body %}
-	<img src="{{ asset('img/bebe-souriant-tailleur.png') }}" class="bebe" alt="bébé en tailleur">
+	{# <img src="{{ asset('img/bebe-souriant-tailleur.png') }}" class="bebe" alt="bébé en tailleur"> #}
 	<section class="app accueil-container">
 		<div class="cardList">
 			<button class="cardList__btn btn btn--left">
@@ -85,18 +85,106 @@
 			</div>
 		</div>
 	</section>
+
 	<section class="presentation">
-		<div class="presentation__wrapper">
-			<div class="presentation__content">
-				<h2 class="presentation__title">Bienvenue chez Parenthèse Enveloppée</h2>
-				<p class="presentation__text">Je vous propose des ateliers de massage bébé, de portage bébé et de réflexologie bébé émotionnelle® à Six-Fours-les-Plages et ses environs.</p>
-				<p class="presentation__text">Ces ateliers sont des moments de partage et de complicité entre vous et votre enfant. Ils vous permettent de renforcer le lien d'attachement, de mieux comprendre les besoins de votre enfant et de l'accompagner dans son développement.</p>
-				<p class="presentation__text">Les ateliers sont adaptés à l'âge de votre enfant et se déroulent en petit groupe ou en individuel.</p>
-				<p class="presentation__text">N'hésitez pas à me contacter pour plus d'informations ou pour réserver votre atelier.</p>
+		<div class="presentation-wrapper">
+			<div class="presentation-content">
+				<h2 class="presentation-title">Bienvenue chez Parenthèse Enveloppée</h2>
+				<p class="presentation-text">Je vous propose des ateliers de massage bébé, de portage bébé et de réflexologie bébé émotionnelle® à Six-Fours-les-Plages et ses environs.
+				Ces ateliers sont des moments de partage et de complicité entre vous et votre enfant. Ils vous permettent de renforcer le lien d'attachement, de mieux comprendre les besoins de votre enfant et de l'accompagner dans son développement.
+				N'hésitez pas à me contacter pour plus d'informations ou pour réserver votre atelier.</p>
 			</div>
 			<a href="{{path('main_presentation')}}" class="btn btn--primary">En savoir plus</a>
 		</div>
 	</section>
+	
+	<section class="container circles-portage">
+		<h2 class="title">Les différents moyens de portage</h2>
+		<div class="row">
+			<div class="dynamic-circle circle-1">
+				<div class="circles">
+					<div class="outCircle">
+						<div class="inCircle" style="background-image: url('{{ asset('img/echarpe-bebe.png') }}');">
+							<h3>L'écharpe de portage</h3>
+						</div>
+					</div>
+				</div>
+				<div class="txt-block">
+					<ul class="txt-hidden">
+						<li>Une longue bande de tissu souple et résistante, l'écharpe de portage permet de porter bébé contre soi, offrant confort et sécurité. <br/><br/> Elle s'ajuste facilement pour répartir le poids de manière équilibrée sur les épaules et le dos du porteur. <br/><br/>Idéale pour les nouveau-nés et les tout-petits, elle favorise le lien parent-enfant tout en permettant au porteur de garder les mains libres.</li>
+					</ul>
+				</div>
+			</div>
+			<div class="dynamic-circle circle-2">
+				<div class="circles">
+					<div class="outCircle">
+						<div class="inCircle" style="background-image: url('{{ asset('img/sling-bebe.png') }}');">
+							<h3>Le Sling</h3>
+						</div>
+					</div>
+				</div>
+				<div class="txt-block">
+					<ul class="txt-hidden">
+						<li>Le sling est une écharpe courte équipée de deux anneaux métalliques permettant un ajustement facile. <br/><br/>Ce moyen de portage rapide à enfiler maintient le bébé en position ergonomique contre le corps du porteur. <br/><br/>Il est particulièrement pratique pour des portages rapides et convient aux nouveau-nés comme aux jeunes enfants, offrant confort et sécurité tout en gardant les mains du porteur libres.</li>
+					</ul>
+				</div>
+			</div>
+			<div class="dynamic-circle circle-3">
+				<div class="circles">
+					<div class="outCircle">
+						<div class="inCircle" style="background-image: url('{{ asset('img/porte-bebe.png') }}');">
+							<h3>Le porte bébé</h3>
+						</div>
+					</div>
+				</div>
+				<div class="txt-block">
+					<ul class="txt-hidden">
+						<li>Un porte-bébé est un dispositif structuré, souvent avec des bretelles rembourrées et une ceinture de soutien, conçu pour transporter un bébé ou un jeune enfant en toute sécurité. <br/><br/>Offrant diverses positions de portage (ventral, dorsal, sur la hanche), il assure une répartition équilibrée du poids, réduisant la tension sur le dos et les épaules du porteur. <br/><br/>Idéal pour les promenades et les activités quotidiennes, il permet de garder bébé près tout en ayant les mains libres.</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="container circles-reflexologie">
+		<h2 class="title">Réflexologie Bébé Émotionnelle®</h2>
+		<div class="row">
+			<div class="dynamic-circle circle-4">
+				<div class="circles">
+					<div class="outCircle">
+						<div class="inCircle" style="background-image: url('{{ asset('img/reflexologie-bebe-six-fours-les-plages.jpg') }}');">
+							<h3>Qu'est-ce que c'est?</h3>
+						</div>
+					</div>
+				</div>
+				<div class="txt-block">
+					<ul class="txt-hidden">
+						<li>La Réflexologie Bébé Émotionnelle® est une approche holistique centrée sur l'enfant.<br/> <br/> Elle repose sur la compréhension des émotions éprouvées pendant la vie intra-utérine et lors de l'accouchement, ainsi que sur le lien entre ces émotions et les douleurs physiques ressenties. Cette pratique peut être appliquée dès la naissance.</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="container circles-massage">
+		<h2 class="title">Réflexologie Bébé Émotionnelle®</h2>
+		<div class="row">
+			<div class="dynamic-circle circle-5">
+				<div class="circles">
+					<div class="outCircle">
+						<div class="inCircle" style="background-image: url('{{ asset('img/reflexologie-bebe-six-fours-les-plages.jpg') }}');">
+							<h3>Qu'est-ce que c'est?</h3>
+						</div>
+					</div>
+				</div>
+				<div class="txt-block">
+					<ul class="txt-hidden">
+						<li>La Réflexologie Bébé Émotionnelle® est une approche holistique centrée sur l'enfant.<br/> Elle repose sur la compréhension des émotions éprouvées pendant la vie intra-utérine et lors de l'accouchement, ainsi que sur le lien entre ces émotions et les douleurs physiques ressenties. Cette pratique peut être appliquée dès la naissance.</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<div class="loading__wrapper">
 		<div class="loader--text">Chargement...</div>
 		<div class="loader">
